@@ -9,12 +9,18 @@ declare(strict_types=1);
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-namespace FactorioItemBrowser\Api\Server;
+namespace FactorioItemBrowser\ExportQueue\Server;
 
+use FactorioItemBrowser\ExportQueue\Server\Constant\RouteName;
 use Psr\Container\ContainerInterface;
 use Zend\Expressive\Application;
 use Zend\Expressive\MiddlewareFactory;
 
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
+    $app->post('/job', Handler\Job\AddHandler::class, RouteName::JOB_ADD);
+    $app->get('/job/{job-id:\d+}', Handler\Job\GetHandler::class, RouteName::JOB_GET);
+    $app->patch('/job/{job-id:\d+}', Handler\Job\UpdateHandler::class, RouteName::JOB_UPDATE);
+    $app->get('/job/list', Handler\Job\ListHandler::class, RouteName::JOB_LIST);
 
+    $app->post('/node/ping', Handler\Node\PingHandler::class, RouteName::NODE_PING);
 };

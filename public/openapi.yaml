@@ -1,0 +1,224 @@
+openapi: "3.0.0"
+info:
+  title: "Factorio Item Browser Export Queue API"
+  description:
+    This API provides access to the export queue of the Factorio Item Browser to automatically add new combinations
+    of mods to the browser database.
+  contact:
+    name: "BluePsyduck"
+    email: "bluepsyduck@gmx.com"
+  version: "alpha"
+servers:
+  - url: "https://queue.factorio-item-browser.com/"
+    description: "Live API server"
+
+tags:
+  - name: "Jobs"
+    description: "Requests related to managing the export jobs."
+  - name: "Nodes"
+    description: "Requests related to managing the nodes actually exporting combinations of mods."
+
+paths:
+  /job:
+    post:
+      summary:
+        Adds a new export job to the queue.
+      operationId: job.add
+      tags:
+        - Jobs
+      parameters:
+        - $ref: "#/components/parameters/x-api-key"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                combinationHash:
+                  $ref: "#/components/schemas/combinationHash"
+                modNames:
+                  $ref: "#/components/schemas/modNames"
+              required:
+                - combinationHash
+                - modNames
+      responses:
+        200:
+          description: The export job has been successfully created and placed into the queue.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Job"
+
+  /job/{job-id}:
+    get:
+      summary: Provides the details to the specified export job.
+      operationId: job.get
+      tags:
+        - Jobs
+      parameters:
+        - $ref: "#/components/parameters/x-api-key"
+        - $ref: "#/components/parameters/job-id"
+      responses:
+        200:
+          description: The details of the requested export job.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Job"
+
+    patch:
+      summary: Updates the status of the specified export job.
+      operationId: job.update
+      tags:
+        - Jobs
+      parameters:
+        - $ref: "#/components/parameters/x-api-key"
+        - $ref: "#/components/parameters/job-id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                status:
+                  $ref: "#/components/schemas/status"
+                errorMessage:
+                  $ref: "#/components/schemas/errorMessage"
+              required:
+                - status
+      responses:
+        200:
+          description: The export job has been successfully updated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Job"
+  /job/list:
+    get:
+      summary: Returns a list of jobs matching the specified filter criteria.
+      operationId: job.list
+      tags:
+        - Jobs
+      parameters:
+        - $ref: "#/components/parameters/x-api-key"
+        - name: combination-hash
+          in: query
+          description: The combination hash to filter.
+          schema:
+            $ref: "#/components/schemas/combinationHash"
+          required: false
+          example: cc5b7d99-8243-417d-86f9-a3ffe49d715b
+        - name: status
+          in: query
+          description: The status to filter.
+          schema:
+            $ref: "#/components/schemas/status"
+          required: false
+          example: queued
+        - name: limit
+          in: query
+          description: The number of jobs to return.
+          schema:
+            type: integer
+          required: false
+          example: 10
+      responses:
+        200:
+          description: The list of jobs matching the criteria.
+          content:
+            application/json:
+              schema:
+                properties:
+                  jobs:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Job"
+                    description: The jobs matching the criteria.
+
+  /node/ping:
+    post:
+      summary: Pings the export queue that the node is up and running.
+      operationId: node.ping
+      tags:
+        - Nodes
+      parameters:
+        - $ref: "#/components/parameters/x-api-key"
+      responses:
+        204:
+          description: The ping of the node has been received.
+
+components:
+  parameters:
+    x-api-key:
+      name: X-Api-Key
+      in: header
+      description: The API-Key to authorize against the API.
+      schema:
+        type: string
+      required: true
+      example: j4_juSFV2sNps&4T
+    job-id:
+      name: job-id
+      in: path
+      description: The id of a previously added job.
+      schema:
+        type: integer
+      required: true
+      example: 42
+
+  schemas:
+    Job:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The unique ID of the job.
+          example: 42
+        combinationHash:
+          $ref: "#/components/schemas/combinationHash"
+        modNames:
+          $ref: "#/components/schemas/modNames"
+        status:
+          $ref: "#/components/schemas/status"
+        errorMessage:
+          $ref: "#/components/schemas/errorMessage"
+        creationTime:
+          type: string
+          format: date-time
+          description: The time when the export job has was created.
+          example: "2038-01-19T03:14:07+00:00"
+        exportTime:
+          type: string
+          format: date-time
+          description: The time when the export job was processed.
+          example: "2038-01-19T03:14:07+00:00"
+        importTime:
+          type: string
+          format: date-time
+          description: The time when the export job was imported into the database.
+          example: "2038-01-19T03:14:07+00:00"
+
+    combinationHash:
+      type: string
+      description: The hash of the combination to be exported.
+      example: cc5b7d99-8243-417d-86f9-a3ffe49d715b
+    modNames:
+      type: array
+      items:
+        type: string
+      description: The mod names to be exported as combination.
+      example: ["base", "IndustrialRevolution"]
+    status:
+      type: string
+      enum:
+        - queued
+        - downloading
+        - processing
+        - uploading
+        - importing
+        - done
+        - error
+      description: The status of the export job.
+      example: queued
+    errorMessage:
+      type: string
+      description: The error message in case the export job failed.
+      example: "InternalException: Everything blew up."

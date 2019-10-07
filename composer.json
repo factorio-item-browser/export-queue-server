@@ -16,6 +16,8 @@
     "php": "^7.2",
     "ext-PDO": "*",
     "bluepsyduck/zend-autowire-factory": "^1.1",
+    "doctrine/cache": "^1.8",
+    "factorio-item-browser/export-queue-client": "dev-master",
     "zendframework/zend-config-aggregator": "^1.0",
     "zendframework/zend-diactoros": "^1.7",
     "zendframework/zend-expressive": "^3.0",
@@ -59,7 +61,7 @@
       "mkdir -p data/cache && chmod 0777 data/cache"
     ],
     "test": [
-      "@composer validate --strict",
+      "#@composer validate --strict",
       "@phpunit",
       "@coverage-check",
       "@phpcs",

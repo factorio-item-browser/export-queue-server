@@ -9,7 +9,7 @@ declare(strict_types=1);
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-namespace FactorioItemBrowser\Api\Server;
+namespace FactorioItemBrowser\ExportQueue\Server;
 
 use Psr\Container\ContainerInterface;
 use Zend\Expressive\Application;
@@ -30,6 +30,8 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->pipe(MethodNotAllowedMiddleware::class);
     $app->pipe(ImplicitHeadMiddleware::class);
     $app->pipe(ImplicitOptionsMiddleware::class);
+
+    $app->pipe(Middleware\ResponseSerializerMiddleware::class);
 
     $app->pipe(DispatchMiddleware::class);
 };
