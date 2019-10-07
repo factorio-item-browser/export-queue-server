@@ -1,0 +1,6 @@
+/.idea
+/data/*
+/test/coverage
+/vendor
+
+/.phpunit.result.cache
