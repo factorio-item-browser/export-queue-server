@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\ExportQueue\Server\Handler\Job;
 
+use FactorioItemBrowser\ExportQueue\Client\Request\Job\CreateRequest;
+use FactorioItemBrowser\ExportQueue\Client\Request\RequestInterface;
 use FactorioItemBrowser\ExportQueue\Client\Response\Job\DetailsResponse;
 use FactorioItemBrowser\ExportQueue\Server\Response\ClientResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -25,6 +27,11 @@ class AddHandler implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        /* @var CreateRequest $clientRequest */
+        $clientRequest = $request->getAttribute(RequestInterface::class);
+
+        var_dump($clientRequest);die;
+
         $response = new DetailsResponse();
 
         return new ClientResponse($response);

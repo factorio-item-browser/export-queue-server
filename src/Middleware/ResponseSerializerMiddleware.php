@@ -43,7 +43,6 @@ class ResponseSerializerMiddleware implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $response = $handler->handle($request);
-
         if ($response instanceof ClientResponse) {
             $serializedResponse = $this->serializer->serialize($response->getResponse(), 'json');
             $response = $response->withSerializedResponse($serializedResponse);

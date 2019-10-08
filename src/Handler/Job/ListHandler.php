@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\ExportQueue\Server\Handler\Job;
 
+use FactorioItemBrowser\ExportQueue\Client\Request\RequestInterface;
 use FactorioItemBrowser\ExportQueue\Client\Response\Job\ListResponse;
 use FactorioItemBrowser\ExportQueue\Server\Response\ClientResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -25,6 +26,8 @@ class ListHandler implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        var_dump($request->getAttribute(RequestInterface::class));die;
+
         return new ClientResponse(new ListResponse());
     }
 }
