@@ -26,5 +26,4 @@ class ConfigKey
      * The key holding the map of request classes to their routes.
      */
     public const REQUEST_CLASSES_BY_ROUTES = 'request-classes-by-routes';
-
 }

@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\ExportQueue\Server\Middleware;
 
+use Exception;
 use FactorioItemBrowser\ExportQueue\Client\Constant\ParameterName;
 use FactorioItemBrowser\ExportQueue\Client\Request\Job\ListRequest;
 use FactorioItemBrowser\ExportQueue\Client\Request\RequestInterface;
+use FactorioItemBrowser\ExportQueue\Server\Exception\ExportQueueServerException;
+use FactorioItemBrowser\ExportQueue\Server\Exception\MalformedRequestException;
 use JMS\Serializer\SerializerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -50,18 +53,21 @@ class RequestDeserializerMiddleware implements MiddlewareInterface
      * @param ServerRequestInterface $request
      * @param RequestHandlerInterface $handler
      * @return ResponseInterface
+     * @throws ExportQueueServerException
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         /* @var RouteResult $route */
         $route = $request->getAttribute(RouteResult::class);
-        $requestClass = $this->requestClassesByRoutes[$route->getMatchedRouteName()];
+        $requestClass = $this->requestClassesByRoutes[$route->getMatchedRouteName()] ?? '';
 
-        $clientRequest = $this->deserializeBody($request, $requestClass);
-        $this->parseRouteParameters($request, $clientRequest);
-        $this->parseQueryParameters($request, $clientRequest);
+        if ($requestClass !== '') {
+            $clientRequest = $this->deserializeBody($request, $requestClass);
+            $this->parseRouteParameters($request, $clientRequest);
+            $this->parseQueryParameters($request, $clientRequest);
 
-        $request = $request->withAttribute(RequestInterface::class, $clientRequest);
+            $request = $request->withAttribute(RequestInterface::class, $clientRequest);
+        }
         return $handler->handle($request);
     }
 
@@ -70,6 +76,7 @@ class RequestDeserializerMiddleware implements MiddlewareInterface
      * @param ServerRequestInterface $request
      * @param string $requestClass
      * @return RequestInterface
+     * @throws ExportQueueServerException
      */
     protected function deserializeBody(ServerRequestInterface $request, string $requestClass): RequestInterface
     {
@@ -77,8 +84,12 @@ class RequestDeserializerMiddleware implements MiddlewareInterface
         if ($content === '') {
             $content = '{}';
         }
-        // @todo Error handling
-        return $this->serializer->deserialize($content, $requestClass, 'json');
+
+        try {
+            return $this->serializer->deserialize($content, $requestClass, 'json');
+        } catch (Exception $e) {
+            throw new MalformedRequestException($e->getMessage(), $e);
+        }
     }
 
     /**

@@ -13,10 +13,14 @@ namespace FactorioItemBrowser\ExportQueue\Server;
 
 use BluePsyduck\ZendAutoWireFactory\AutoWireFactory;
 use FactorioItemBrowser\ExportQueue\Server\Constant\ConfigKey;
+use Zend\Expressive\Middleware\ErrorResponseGenerator;
 use function BluePsyduck\ZendAutoWireFactory\readConfig;
 
 return [
     'dependencies' => [
+        'aliases' => [
+            ErrorResponseGenerator::class => Response\ErrorResponseGenerator::class,
+        ],
         'factories' => [
             Handler\Job\AddHandler::class => AutoWireFactory::class,
             Handler\Job\GetHandler::class => AutoWireFactory::class,
@@ -24,11 +28,16 @@ return [
             Handler\Job\UpdateHandler::class => AutoWireFactory::class,
             Handler\Node\PingHandler::class => AutoWireFactory::class,
 
+            Middleware\MetaMiddleware::class => AutoWireFactory::class,
             Middleware\RequestDeserializerMiddleware::class => AutoWireFactory::class,
             Middleware\ResponseSerializerMiddleware::class => AutoWireFactory::class,
 
+            Response\ErrorResponseGenerator::class => AutoWireFactory::class,
+
             // Auto-wire helpers
             'array $requestClassesByRoutes' => readConfig(ConfigKey::PROJECT, ConfigKey::EXPORT_QUEUE_SERVER, ConfigKey::REQUEST_CLASSES_BY_ROUTES),
+            'bool $isDebug' => readConfig('debug'),
+            'string $version' => readConfig('version'),
         ],
     ],
 ];

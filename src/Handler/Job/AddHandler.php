@@ -30,7 +30,8 @@ class AddHandler implements RequestHandlerInterface
         /* @var CreateRequest $clientRequest */
         $clientRequest = $request->getAttribute(RequestInterface::class);
 
-        var_dump($clientRequest);die;
+        var_dump($clientRequest);
+        die;
 
         $response = new DetailsResponse();
 

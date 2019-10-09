@@ -26,7 +26,8 @@ class ListHandler implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        var_dump($request->getAttribute(RequestInterface::class));die;
+        var_dump($request->getAttribute(RequestInterface::class));
+        die;
 
         return new ClientResponse(new ListResponse());
     }

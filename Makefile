@@ -1,4 +1,4 @@
-.PHONY: help bash build-cache install start stop test update
+.PHONY: help bash build-cache install fix start stop test update
 
 help: ## Show this help.
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
@@ -10,7 +10,10 @@ build-cache: ## Cleans and re-nuilds the cache.
 	docker-compose run php composer build-cache
 
 install:
-	docker-compose run php install
+	docker-compose run php composer install
+
+fix: ## Fixes the codestyle in the project.
+	docker-compose run php composer phpcbf
 
 start:
 	docker-compose up -d
