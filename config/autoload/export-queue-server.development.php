@@ -20,6 +20,9 @@ return [
                 [
                     ConfigKey::AGENT_NAME => 'debug',
                     ConfigKey::AGENT_ACCESS_KEY => 'factorio-item-browser',
+                    ConfigKey::AGENT_CAN_CREATE => true,
+                    ConfigKey::AGENT_CAN_EXPORT => true,
+                    ConfigKey::AGENT_CAN_IMPORT => true,
                 ],
             ],
         ],

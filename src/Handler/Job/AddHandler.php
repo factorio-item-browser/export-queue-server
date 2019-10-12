@@ -14,6 +14,7 @@ use FactorioItemBrowser\ExportQueue\Client\Request\RequestInterface;
 use FactorioItemBrowser\ExportQueue\Client\Response\Job\DetailsResponse;
 use FactorioItemBrowser\ExportQueue\Server\Entity\Agent;
 use FactorioItemBrowser\ExportQueue\Server\Entity\Job;
+use FactorioItemBrowser\ExportQueue\Server\Exception\ActionNotAllowedException;
 use FactorioItemBrowser\ExportQueue\Server\Repository\JobRepository;
 use FactorioItemBrowser\ExportQueue\Server\Response\ClientResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -65,6 +66,10 @@ class AddHandler implements RequestHandlerInterface
         $agent = $request->getAttribute(Agent::class);
         /* @var CreateRequest $clientRequest */
         $clientRequest = $request->getAttribute(RequestInterface::class);
+
+        if (!$agent->getCanCreate()) {
+            throw new ActionNotAllowedException('Creating new exports');
+        }
 
         $job = new Job();
         $job->setCombinationId(Uuid::fromString($clientRequest->getCombinationId()))

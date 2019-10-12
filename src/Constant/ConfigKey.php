@@ -41,4 +41,19 @@ class ConfigKey
      * The key holding the access key of the agent.
      */
     public const AGENT_ACCESS_KEY = 'access-key';
+
+    /**
+     * The key holding whether the agent can create new export jobs.
+     */
+    public const AGENT_CAN_CREATE = 'can-create';
+
+    /**
+     * The key holding whether the agent can process export jobs.
+     */
+    public const AGENT_CAN_EXPORT = 'can-export';
+
+    /**
+     * The key holding whether the agent can import data into the database.
+     */
+    public const AGENT_CAN_IMPORT = 'can-import';
 }

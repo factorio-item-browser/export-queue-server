@@ -46,7 +46,10 @@ class AgentRepositoryFactory implements FactoryInterface
     {
         $agent = new Agent();
         $agent->setName($agentConfig[ConfigKey::AGENT_NAME] ?? '')
-              ->setAccessKey($agentConfig[ConfigKey::AGENT_ACCESS_KEY] ?? '');
+              ->setAccessKey($agentConfig[ConfigKey::AGENT_ACCESS_KEY] ?? '')
+              ->setCanCreate((bool) ($agentConfig[ConfigKey::AGENT_CAN_CREATE] ?? false))
+              ->setCanExport((bool) ($agentConfig[ConfigKey::AGENT_CAN_EXPORT] ?? false))
+              ->setCanImport((bool) ($agentConfig[ConfigKey::AGENT_CAN_IMPORT] ?? false));
         return $agent;
     }
 }
