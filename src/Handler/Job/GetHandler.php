@@ -60,10 +60,11 @@ class GetHandler implements RequestHandlerInterface
     {
         /* @var DetailsRequest $clientRequest */
         $clientRequest = $request->getAttribute(RequestInterface::class);
+        $jobId = Uuid::fromString($clientRequest->getJobId());
 
-        $entity = $this->jobRepository->findById(Uuid::fromString($clientRequest->getJobId()));
+        $entity = $this->jobRepository->findById($jobId);
         if ($entity === null) {
-            throw new JobNotFoundException($clientRequest->getJobId());
+            throw new JobNotFoundException($jobId);
         }
 
         $response = new DetailsResponse();

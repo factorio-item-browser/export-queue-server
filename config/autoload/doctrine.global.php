@@ -49,7 +49,7 @@ return [
             ],
         ],
         'types' => [
-            Doctrine\Type\JobStatus::NAME => Doctrine\Type\JobStatus::class,
+            Doctrine\Type\JobStatusType::NAME => Doctrine\Type\JobStatusType::class,
             UuidBinaryType::NAME => UuidBinaryType::class,
         ],
     ],

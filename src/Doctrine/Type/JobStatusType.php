@@ -6,7 +6,7 @@ namespace FactorioItemBrowser\ExportQueue\Server\Doctrine\Type;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
-use FactorioItemBrowser\ExportQueue\Client\Constant\JobStatus as JobStatusConstant;
+use FactorioItemBrowser\ExportQueue\Client\Constant\JobStatus;
 
 /**
  * The enum type for the job status.
@@ -14,7 +14,7 @@ use FactorioItemBrowser\ExportQueue\Client\Constant\JobStatus as JobStatusConsta
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class JobStatus extends Type
+class JobStatusType extends Type
 {
     /**
      * The name of the Doctrine type.
@@ -25,14 +25,14 @@ class JobStatus extends Type
      * The values of the enum.
      */
     protected const VALUES = [
-        JobStatusConstant::QUEUED,
-        JobStatusConstant::DOWNLOADING,
-        JobStatusConstant::PROCESSING,
-        JobStatusConstant::UPLOADING,
-        JobStatusConstant::UPLOADED,
-        JobStatusConstant::IMPORTING,
-        JobStatusConstant::DONE,
-        JobStatusConstant::ERROR,
+        JobStatus::QUEUED,
+        JobStatus::DOWNLOADING,
+        JobStatus::PROCESSING,
+        JobStatus::UPLOADING,
+        JobStatus::UPLOADED,
+        JobStatus::IMPORTING,
+        JobStatus::DONE,
+        JobStatus::ERROR,
     ];
 
     /**

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\ExportQueue\Server\Exception;
 
+use Ramsey\Uuid\UuidInterface;
 use Throwable;
 
 /**
@@ -21,11 +22,11 @@ class JobNotFoundException extends ExportQueueServerException
 
     /**
      * Initializes the exception.
-     * @param string $jobId
+     * @param UuidInterface $jobId
      * @param Throwable|null $previous
      */
-    public function __construct(string $jobId, ?Throwable $previous = null)
+    public function __construct(UuidInterface $jobId, ?Throwable $previous = null)
     {
-        parent::__construct(sprintf(self::MESSAGE, $jobId), 404, $previous);
+        parent::__construct(sprintf(self::MESSAGE, $jobId->toString()), 404, $previous);
     }
 }

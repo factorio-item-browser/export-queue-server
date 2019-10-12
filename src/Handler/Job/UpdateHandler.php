@@ -82,10 +82,11 @@ class UpdateHandler implements RequestHandlerInterface
         $agent = $request->getAttribute(Agent::class);
         /* @var UpdateRequest $clientRequest */
         $clientRequest = $request->getAttribute(RequestInterface::class);
+        $jobId = Uuid::fromString($clientRequest->getJobId());
 
-        $job = $this->jobRepository->findById(Uuid::fromString($clientRequest->getJobId()));
+        $job = $this->jobRepository->findById($jobId);
         if ($job === null) {
-            throw new JobNotFoundException($clientRequest->getJobId());
+            throw new JobNotFoundException($jobId);
         }
 
         $this->checkStatusChange($clientRequest, $job);

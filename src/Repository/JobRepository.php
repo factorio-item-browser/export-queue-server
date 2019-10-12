@@ -6,7 +6,7 @@ namespace FactorioItemBrowser\ExportQueue\Server\Repository;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
-use FactorioItemBrowser\ExportQueue\Server\Doctrine\Type\JobStatus;
+use FactorioItemBrowser\ExportQueue\Server\Doctrine\Type\JobStatusType;
 use FactorioItemBrowser\ExportQueue\Server\Entity\Job;
 use Ramsey\Uuid\Doctrine\UuidBinaryType;
 use Ramsey\Uuid\UuidInterface;
@@ -76,7 +76,7 @@ class JobRepository
         }
         if ($status !== '') {
             $queryBuilder->andWhere('j.status = :status')
-                         ->setParameter('status', $status, JobStatus::NAME);
+                         ->setParameter('status', $status, JobStatusType::NAME);
         }
 
         return $queryBuilder->getQuery()->getResult();
