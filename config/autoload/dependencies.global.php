@@ -33,10 +33,12 @@ return [
 
             Mapper\JobMapper::class => AutoWireFactory::class,
 
+            Middleware\AgentMiddleware::class => AutoWireFactory::class,
             Middleware\MetaMiddleware::class => AutoWireFactory::class,
             Middleware\RequestDeserializerMiddleware::class => AutoWireFactory::class,
             Middleware\ResponseSerializerMiddleware::class => AutoWireFactory::class,
 
+            Repository\AgentRepository::class => Repository\AgentRepositoryFactory::class,
             Repository\JobRepository::class => AutoWireFactory::class,
 
             Response\ErrorResponseGenerator::class => AutoWireFactory::class,
