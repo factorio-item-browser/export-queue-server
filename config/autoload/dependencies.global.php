@@ -31,9 +31,13 @@ return [
             Handler\Job\UpdateHandler::class => AutoWireFactory::class,
             Handler\Node\PingHandler::class => AutoWireFactory::class,
 
+            Mapper\JobMapper::class => AutoWireFactory::class,
+
             Middleware\MetaMiddleware::class => AutoWireFactory::class,
             Middleware\RequestDeserializerMiddleware::class => AutoWireFactory::class,
             Middleware\ResponseSerializerMiddleware::class => AutoWireFactory::class,
+
+            Repository\JobRepository::class => AutoWireFactory::class,
 
             Response\ErrorResponseGenerator::class => AutoWireFactory::class,
 

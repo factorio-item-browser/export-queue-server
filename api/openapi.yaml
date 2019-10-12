@@ -33,12 +33,12 @@ paths:
           application/json:
             schema:
               properties:
-                combinationHash:
-                  $ref: "#/components/schemas/combinationHash"
+                combinationId:
+                  $ref: "#/components/schemas/combinationId"
                 modNames:
                   $ref: "#/components/schemas/modNames"
               required:
-                - combinationHash
+                - combinationId
                 - modNames
       responses:
         200:
@@ -103,7 +103,7 @@ paths:
           in: query
           description: The combination hash to filter.
           schema:
-            $ref: "#/components/schemas/combinationHash"
+            $ref: "#/components/schemas/combinationId"
           required: false
           example: cc5b7d99-8243-417d-86f9-a3ffe49d715b
         - name: status
@@ -172,8 +172,8 @@ components:
           type: integer
           description: The unique ID of the job.
           example: 42
-        combinationHash:
-          $ref: "#/components/schemas/combinationHash"
+        combinationId:
+          $ref: "#/components/schemas/combinationId"
         modNames:
           $ref: "#/components/schemas/modNames"
         status:
@@ -196,9 +196,9 @@ components:
           description: The time when the export job was imported into the database.
           example: "2038-01-19T03:14:07+00:00"
 
-    combinationHash:
+    combinationId:
       type: string
-      description: The hash of the combination to be exported.
+      description: The id of the combination to be exported.
       example: cc5b7d99-8243-417d-86f9-a3ffe49d715b
     modNames:
       type: array
@@ -218,6 +218,10 @@ components:
         - error
       description: The status of the export job.
       example: queued
+    node:
+      type: string
+      description: The node processing the export.
+      example: C418
     errorMessage:
       type: string
       description: The error message in case the export job failed.

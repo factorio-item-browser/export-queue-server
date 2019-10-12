@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c623d68982f4010902b3ba2abf3957ce",
+    "content-hash": "5eaa8d6a0f1cd44ab7a543ea7ca3e655",
     "packages": [
         {
             "name": "bluepsyduck/container-interop-doctrine-migrations",
@@ -59,6 +59,57 @@
                 "migrations"
             ],
             "time": "2019-10-11T14:55:32+00:00"
+        },
+        {
+            "name": "bluepsyduck/mapper-manager",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BluePsyduck/mapper-manager.git",
+                "reference": "316babe1700d141ca2efdb7a5da47a90859d6c8d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BluePsyduck/mapper-manager/zipball/316babe1700d141ca2efdb7a5da47a90859d6c8d",
+                "reference": "316babe1700d141ca2efdb7a5da47a90859d6c8d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1",
+                "psr/container": "^1.0"
+            },
+            "require-dev": {
+                "bluepsyduck/common": "^1.0",
+                "phpstan/phpstan": "^0.10",
+                "phpstan/phpstan-phpunit": "^0.10",
+                "phpstan/phpstan-strict-rules": "^0.10",
+                "phpunit/phpunit": "^7.3",
+                "rregeer/phpunit-coverage-check": "^0.1",
+                "squizlabs/php_codesniffer": "^3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BluePsyduck\\MapperManager\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "BluePsyduck",
+                    "email": "bluepsyduck@gmx.com"
+                }
+            ],
+            "description": "A manager for mapping objects to other ones.",
+            "homepage": "https://github.com/BluePsyduck/mapper-manager",
+            "keywords": [
+                "manager",
+                "mapper"
+            ],
+            "time": "2019-03-25T17:25:23+00:00"
         },
         {
             "name": "bluepsyduck/zend-autowire-factory",
@@ -1144,12 +1195,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/factorio-item-browser/export-queue-client.git",
-                "reference": "30e4927b85b61fa7fffebe7b559f45bfe98f9004"
+                "reference": "2ff766c1a8bddd01bb81807cf483fc9879252b0d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/factorio-item-browser/export-queue-client/zipball/30e4927b85b61fa7fffebe7b559f45bfe98f9004",
-                "reference": "30e4927b85b61fa7fffebe7b559f45bfe98f9004",
+                "url": "https://api.github.com/repos/factorio-item-browser/export-queue-client/zipball/2ff766c1a8bddd01bb81807cf483fc9879252b0d",
+                "reference": "2ff766c1a8bddd01bb81807cf483fc9879252b0d",
                 "shasum": ""
             },
             "require": {
@@ -1200,7 +1251,7 @@
                 "export",
                 "queue"
             ],
-            "time": "2019-10-06T15:29:54+00:00"
+            "time": "2019-10-12T08:48:44+00:00"
         },
         {
             "name": "fig/http-message-util",

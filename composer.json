@@ -15,6 +15,7 @@
   "require": {
     "php": "^7.2",
     "ext-PDO": "*",
+    "bluepsyduck/mapper-manager": "^1.1",
     "bluepsyduck/zend-autowire-factory": "^1.1",
     "doctrine/cache": "^1.8",
     "bluepsyduck/container-interop-doctrine-migrations": "dev-master",
