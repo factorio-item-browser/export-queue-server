@@ -18,9 +18,7 @@ use Zend\Expressive\MiddlewareFactory;
 
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
     $app->post('/job', Handler\Job\AddHandler::class, RouteName::JOB_ADD);
-    $app->get('/job/{job-id:\d+}', Handler\Job\GetHandler::class, RouteName::JOB_GET);
-    $app->patch('/job/{job-id:\d+}', Handler\Job\UpdateHandler::class, RouteName::JOB_UPDATE);
+    $app->get('/job/{job-id:[0-9a-f-]+}', Handler\Job\GetHandler::class, RouteName::JOB_GET);
+    $app->patch('/job/{job-id:[0-9a-f-]+}', Handler\Job\UpdateHandler::class, RouteName::JOB_UPDATE);
     $app->get('/job/list', Handler\Job\ListHandler::class, RouteName::JOB_LIST);
-
-    $app->post('/node/ping', Handler\Node\PingHandler::class, RouteName::NODE_PING);
 };

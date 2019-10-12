@@ -101,7 +101,7 @@ class RequestDeserializerMiddleware implements MiddlewareInterface
     {
         $callback = [$clientRequest, 'setJobId'];
         if (is_callable($callback)) {
-            call_user_func($callback, (int) $request->getAttribute('job-id'));
+            call_user_func($callback, $request->getAttribute('job-id'));
         }
     }
 
@@ -115,7 +115,7 @@ class RequestDeserializerMiddleware implements MiddlewareInterface
         if ($clientRequest instanceof ListRequest) {
             $queryParams = $request->getQueryParams();
 
-            $clientRequest->setCombinationHash($queryParams[ParameterName::COMBINATION_HASH] ?? '')
+            $clientRequest->setCombinationId($queryParams[ParameterName::COMBINATION_ID] ?? '')
                           ->setStatus($queryParams[ParameterName::STATUS] ?? '')
                           ->setLimit(((int) $queryParams[ParameterName::LIMIT]) ?? 0);
         }

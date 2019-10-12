@@ -29,7 +29,6 @@ return [
             Handler\Job\GetHandler::class => AutoWireFactory::class,
             Handler\Job\ListHandler::class => AutoWireFactory::class,
             Handler\Job\UpdateHandler::class => AutoWireFactory::class,
-            Handler\Node\PingHandler::class => AutoWireFactory::class,
 
             Mapper\JobMapper::class => AutoWireFactory::class,
 

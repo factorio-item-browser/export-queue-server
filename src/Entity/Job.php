@@ -17,13 +17,13 @@ class Job
 {
     /**
      * The id of the export job.
-     * @var int|null
+     * @var UuidInterface|null
      */
     protected $id;
 
     /**
      * The id of the combination to be exported.
-     * @var UuidInterface
+     * @var UuidInterface|null
      */
     protected $combinationId;
 
@@ -40,16 +40,16 @@ class Job
     protected $status = '';
 
     /**
-     * The node processing the export.
-     * @var string
-     */
-    protected $node = '';
-
-    /**
      * The error message in case the export job failed.
      * @var string
      */
     protected $errorMessage = '';
+
+    /**
+     * The creator of the export job.
+     * @var string
+     */
+    protected $creator = '';
 
     /**
      * The time when the export job has was created.
@@ -58,10 +58,22 @@ class Job
     protected $creationTime = null;
 
     /**
+     * The exporter processing the job.
+     * @var string
+     */
+    protected $exporter = '';
+
+    /**
      * The time when the export job was processed.
      * @var DateTimeInterface|null
      */
     protected $exportTime = null;
+
+    /**
+     * The importer adding the data to the database.
+     * @var string
+     */
+    protected $importer = '';
 
     /**
      * The time when the export job was imported into the database.
@@ -71,10 +83,10 @@ class Job
 
     /**
      * Sets the id of the export job.
-     * @param int|null $id
+     * @param UuidInterface|null $id
      * @return $this
      */
-    public function setId(?int $id): self
+    public function setId(?UuidInterface $id): self
     {
         $this->id = $id;
         return $this;
@@ -82,19 +94,19 @@ class Job
 
     /**
      * Returns the id of the export job.
-     * @return int|null
+     * @return UuidInterface|null
      */
-    public function getId(): ?int
+    public function getId(): ?UuidInterface
     {
         return $this->id;
     }
 
     /**
      * Sets the id of the combination to be exported.
-     * @param UuidInterface $combinationId
+     * @param UuidInterface|null $combinationId
      * @return $this
      */
-    public function setCombinationId(UuidInterface $combinationId): self
+    public function setCombinationId(?UuidInterface $combinationId): self
     {
         $this->combinationId = $combinationId;
         return $this;
@@ -102,9 +114,9 @@ class Job
 
     /**
      * Returns the id of the combination to be exported.
-     * @return UuidInterface
+     * @return UuidInterface|null
      */
-    public function getCombinationId(): UuidInterface
+    public function getCombinationId(): ?UuidInterface
     {
         return $this->combinationId;
     }
@@ -150,26 +162,6 @@ class Job
     }
 
     /**
-     * Sets the node processing the export.
-     * @param string $node
-     * @return $this
-     */
-    public function setNode(string $node): self
-    {
-        $this->node = $node;
-        return $this;
-    }
-
-    /**
-     * Returns the node processing the export.
-     * @return string
-     */
-    public function getNode(): string
-    {
-        return $this->node;
-    }
-
-    /**
      * Sets the error message in case the export job failed.
      * @param string $errorMessage
      * @return $this
@@ -187,6 +179,26 @@ class Job
     public function getErrorMessage(): string
     {
         return $this->errorMessage;
+    }
+
+    /**
+     * Sets the creator of the export job.
+     * @param string $creator
+     * @return $this
+     */
+    public function setCreator(string $creator): self
+    {
+        $this->creator = $creator;
+        return $this;
+    }
+
+    /**
+     * Returns the creator of the export job.
+     * @return string
+     */
+    public function getCreator(): string
+    {
+        return $this->creator;
     }
 
     /**
@@ -210,6 +222,26 @@ class Job
     }
 
     /**
+     * Sets the exporter processing the job.
+     * @param string $exporter
+     * @return $this
+     */
+    public function setExporter(string $exporter): self
+    {
+        $this->exporter = $exporter;
+        return $this;
+    }
+
+    /**
+     * Returns the exporter processing the job.
+     * @return string
+     */
+    public function getExporter(): string
+    {
+        return $this->exporter;
+    }
+
+    /**
      * Sets the time when the export job was processed.
      * @param DateTimeInterface|null $exportTime
      * @return $this
@@ -227,6 +259,26 @@ class Job
     public function getExportTime(): ?DateTimeInterface
     {
         return $this->exportTime;
+    }
+
+    /**
+     * Sets the importer adding the data to the database.
+     * @param string $importer
+     * @return $this
+     */
+    public function setImporter(string $importer): self
+    {
+        $this->importer = $importer;
+        return $this;
+    }
+
+    /**
+     * Returns the importer adding the data to the database.
+     * @return string
+     */
+    public function getImporter(): string
+    {
+        return $this->importer;
     }
 
     /**

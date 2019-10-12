@@ -17,14 +17,14 @@ class JobNotFoundException extends ExportQueueServerException
     /**
      * The message template of the exception.
      */
-    protected const MESSAGE = 'Job #%d not found.';
+    protected const MESSAGE = 'Job %s not found.';
 
     /**
      * Initializes the exception.
-     * @param int $jobId
+     * @param string $jobId
      * @param Throwable|null $previous
      */
-    public function __construct(int $jobId, ?Throwable $previous = null)
+    public function __construct(string $jobId, ?Throwable $previous = null)
     {
         parent::__construct(sprintf(self::MESSAGE, $jobId), 404, $previous);
     }

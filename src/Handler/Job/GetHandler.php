@@ -16,6 +16,7 @@ use FactorioItemBrowser\ExportQueue\Server\Response\ClientResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Ramsey\Uuid\Uuid;
 
 /**
  * The handler for getting job details.
@@ -59,7 +60,8 @@ class GetHandler implements RequestHandlerInterface
     {
         /* @var DetailsRequest $clientRequest */
         $clientRequest = $request->getAttribute(RequestInterface::class);
-        $entity = $this->jobRepository->findById($clientRequest->getJobId());
+
+        $entity = $this->jobRepository->findById(Uuid::fromString($clientRequest->getJobId()));
         if ($entity === null) {
             throw new JobNotFoundException($clientRequest->getJobId());
         }

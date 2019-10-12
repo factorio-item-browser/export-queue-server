@@ -15,6 +15,7 @@ use FactorioItemBrowser\ExportQueue\Server\Response\ClientResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Ramsey\Uuid\Uuid;
 
 /**
  * The handler for getting a list of jobs.
@@ -58,7 +59,7 @@ class ListHandler implements RequestHandlerInterface
         $clientRequest = $request->getAttribute(RequestInterface::class);
 
         $jobs = $this->jobRepository->findAll(
-            $clientRequest->getCombinationId(),
+            Uuid::fromString($clientRequest->getCombinationId()),
             $clientRequest->getStatus(),
             $clientRequest->getLimit()
         );

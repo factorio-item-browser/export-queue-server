@@ -6,8 +6,10 @@ namespace FactorioItemBrowser\ExportQueue\Server\Repository;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
+use FactorioItemBrowser\ExportQueue\Server\Doctrine\Type\JobStatus;
 use FactorioItemBrowser\ExportQueue\Server\Entity\Job;
-use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\Doctrine\UuidBinaryType;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * The repository of the Job entities.
@@ -34,16 +36,16 @@ class JobRepository
 
     /**
      * Finds an export job by its id.
-     * @param int $jobId
+     * @param UuidInterface $jobId
      * @return Job|null
      */
-    public function findById(int $jobId): ?Job
+    public function findById(UuidInterface $jobId): ?Job
     {
         $queryBuilder = $this->entityManager->createQueryBuilder();
         $queryBuilder->select('j')
                      ->from(Job::class, 'j')
                      ->andWhere('j.id = :jobId')
-                     ->setParameter('jobId', $jobId);
+                     ->setParameter('jobId', $jobId, UuidBinaryType::NAME);
 
         try {
             return $queryBuilder->getQuery()->getOneOrNullResult();
@@ -55,12 +57,12 @@ class JobRepository
 
     /**
      * Find all export jobs matching the specified criteria.
-     * @param string $combinationId
+     * @param UuidInterface $combinationId
      * @param string $status
      * @param int $limit
      * @return array|Job[]
      */
-    public function findAll(string $combinationId, string $status, int $limit): array
+    public function findAll(UuidInterface $combinationId, string $status, int $limit): array
     {
         $queryBuilder = $this->entityManager->createQueryBuilder();
         $queryBuilder->select('j')
@@ -70,11 +72,11 @@ class JobRepository
 
         if ($combinationId !== '') {
             $queryBuilder->andWhere('j.combinationId = :combinationId')
-                         ->setParameter('combinationId', Uuid::fromString($combinationId));
+                         ->setParameter('combinationId', $combinationId, UuidBinaryType::NAME);
         }
         if ($status !== '') {
             $queryBuilder->andWhere('j.status = :status')
-                         ->setParameter('status', $status);
+                         ->setParameter('status', $status, JobStatus::NAME);
         }
 
         return $queryBuilder->getQuery()->getResult();

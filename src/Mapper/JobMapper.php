@@ -34,13 +34,21 @@ class JobMapper implements DynamicMapperInterface
      */
     public function map($source, $destination): void
     {
-        $destination->setId($source->getId())
-                    ->setCombinationId($source->getCombinationId()->toString())
-                    ->setModNames($source->getModNames())
+        if ($source->getId() !== null) {
+            $destination->setId($source->getId()->toString());
+        }
+        if ($source->getCombinationId() !== null) {
+            $destination->setCombinationId($source->getCombinationId()->toString());
+        }
+
+        $destination->setModNames($source->getModNames())
                     ->setStatus($source->getStatus())
                     ->setErrorMessage($source->getErrorMessage())
+                    ->setCreator($source->getCreator())
                     ->setCreationTime($source->getCreationTime())
+                    ->setExporter($source->getExporter())
                     ->setExportTime($source->getExportTime())
+                    ->setImporter($source->getImporter())
                     ->setImportTime($source->getImportTime());
     }
 }

@@ -12,6 +12,7 @@ use FactorioItemBrowser\ExportQueue\Client\Constant\JobStatus;
 use FactorioItemBrowser\ExportQueue\Client\Request\Job\CreateRequest;
 use FactorioItemBrowser\ExportQueue\Client\Request\RequestInterface;
 use FactorioItemBrowser\ExportQueue\Client\Response\Job\DetailsResponse;
+use FactorioItemBrowser\ExportQueue\Server\Entity\Agent;
 use FactorioItemBrowser\ExportQueue\Server\Entity\Job;
 use FactorioItemBrowser\ExportQueue\Server\Repository\JobRepository;
 use FactorioItemBrowser\ExportQueue\Server\Response\ClientResponse;
@@ -60,6 +61,8 @@ class AddHandler implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        /* @var Agent $agent */
+        $agent = $request->getAttribute(Agent::class);
         /* @var CreateRequest $clientRequest */
         $clientRequest = $request->getAttribute(RequestInterface::class);
 
@@ -67,6 +70,7 @@ class AddHandler implements RequestHandlerInterface
         $job->setCombinationId(Uuid::fromString($clientRequest->getCombinationId()))
             ->setModNames($clientRequest->getModNames())
             ->setStatus(JobStatus::QUEUED)
+            ->setCreator($agent->getName())
             ->setCreationTime(new DateTime());
         $this->jobRepository->persist($job);
 

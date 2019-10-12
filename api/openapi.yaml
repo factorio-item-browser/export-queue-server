@@ -15,8 +15,6 @@ servers:
 tags:
   - name: "Jobs"
     description: "Requests related to managing the export jobs."
-  - name: "Nodes"
-    description: "Requests related to managing the nodes actually exporting combinations of mods."
 
 paths:
   /job:
@@ -133,18 +131,6 @@ paths:
                       $ref: "#/components/schemas/Job"
                     description: The jobs matching the criteria.
 
-  /node/ping:
-    post:
-      summary: Pings the export queue that the node is up and running.
-      operationId: node.ping
-      tags:
-        - Nodes
-      parameters:
-        - $ref: "#/components/parameters/x-api-key"
-      responses:
-        204:
-          description: The ping of the node has been received.
-
 components:
   parameters:
     x-api-key:
@@ -160,18 +146,18 @@ components:
       in: path
       description: The id of a previously added job.
       schema:
-        type: integer
+        type: string
       required: true
-      example: 42
+      example: c7c9f039-65fe-4acf-b8f5-8eecafc44ec0
 
   schemas:
     Job:
       type: object
       properties:
         id:
-          type: integer
-          description: The unique ID of the job.
-          example: 42
+          type: string
+          description: The id of the job.
+          example: c7c9f039-65fe-4acf-b8f5-8eecafc44ec0
         combinationId:
           $ref: "#/components/schemas/combinationId"
         modNames:
@@ -180,16 +166,28 @@ components:
           $ref: "#/components/schemas/status"
         errorMessage:
           $ref: "#/components/schemas/errorMessage"
+        creator:
+          type: string
+          description: The creator of the export job.
+          example: portal
         creationTime:
           type: string
           format: date-time
           description: The time when the export job has was created.
           example: "2038-01-19T03:14:07+00:00"
+        exporter:
+          type: string
+          description: The exporter processing the job.
+          example: C418
         exportTime:
           type: string
           format: date-time
           description: The time when the export job was processed.
           example: "2038-01-19T03:14:07+00:00"
+        importer:
+          type: string
+          description: The importer adding the data to the database.
+          example: api-import
         importTime:
           type: string
           format: date-time
@@ -218,10 +216,6 @@ components:
         - error
       description: The status of the export job.
       example: queued
-    node:
-      type: string
-      description: The node processing the export.
-      example: C418
     errorMessage:
       type: string
       description: The error message in case the export job failed.
