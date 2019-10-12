@@ -11,7 +11,10 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\ExportQueue\Server;
 
+use BluePsyduck\ContainerInteropDoctrineMigrations\MigrationsConfigurationFactory;
 use BluePsyduck\ZendAutoWireFactory\AutoWireFactory;
+use ContainerInteropDoctrine\EntityManagerFactory;
+use Doctrine\ORM\EntityManagerInterface;
 use FactorioItemBrowser\ExportQueue\Server\Constant\ConfigKey;
 use Zend\Expressive\Middleware\ErrorResponseGenerator;
 use function BluePsyduck\ZendAutoWireFactory\readConfig;
@@ -33,6 +36,10 @@ return [
             Middleware\ResponseSerializerMiddleware::class => AutoWireFactory::class,
 
             Response\ErrorResponseGenerator::class => AutoWireFactory::class,
+
+            // 3rd-party dependencies
+            EntityManagerInterface::class => EntityManagerFactory::class,
+            'doctrine.migrations.orm_default' => MigrationsConfigurationFactory::class,
 
             // Auto-wire helpers
             'array $requestClassesByRoutes' => readConfig(ConfigKey::PROJECT, ConfigKey::EXPORT_QUEUE_SERVER, ConfigKey::REQUEST_CLASSES_BY_ROUTES),

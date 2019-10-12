@@ -1,0 +1,68 @@
+<doctrine-mapping
+    xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                        https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
+>
+    <entity name="FactorioItemBrowser\ExportQueue\Server\Entity\Job">
+        <options>
+            <option name="comment">The table holding the export jobs.</option>
+        </options>
+
+        <id name="id" type="integer">
+            <generator />
+            <options>
+                <option name="unsigned">true</option>
+                <option name="comment">The id of the export job.</option>
+            </options>
+        </id>
+
+        <field name="combinationId" type="uuid_binary">
+            <options>
+                <option name="comment">The id of the combination to be exported.</option>
+            </options>
+        </field>
+
+        <field name="modNames" type="json">
+            <options>
+                <option name="comment">The mod names to be exported as combination.</option>
+            </options>
+        </field>
+
+        <field name="status">
+            <options>
+                <option name="comment">The status of the export job.</option>
+            </options>
+        </field>
+
+        <field name="node">
+            <options>
+                <option name="comment">The node processing the export.</option>
+            </options>
+        </field>
+
+        <field name="errorMessage" type="text">
+            <options>
+                <option name="comment">The error message in case the export job failed.</option>
+            </options>
+        </field>
+
+        <field name="creationTime" type="datetime" nullable="true">
+            <options>
+                <option name="comment">The time when the export job has was created.</option>
+            </options>
+        </field>
+
+        <field name="exportTime" type="datetime" nullable="true">
+            <options>
+                <option name="comment">The time when the export job was processed.</option>
+            </options>
+        </field>
+
+        <field name="importTime" type="datetime" nullable="true">
+            <options>
+                <option name="comment">The time when the export job was imported into the database.</option>
+            </options>
+        </field>
+    </entity>
+</doctrine-mapping>

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\ExportQueue\Server\Handler\Job;
 
-use FactorioItemBrowser\ExportQueue\Client\Request\RequestInterface;
 use FactorioItemBrowser\ExportQueue\Client\Response\Job\DetailsResponse;
+use FactorioItemBrowser\ExportQueue\Server\Entity\Job;
 use FactorioItemBrowser\ExportQueue\Server\Response\ClientResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -26,8 +26,18 @@ class GetHandler implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-//        var_dump($request->getAttribute(RequestInterface::class));die;
+        $entity = new Job();
 
-        return new ClientResponse(new DetailsResponse());
+        $response = new DetailsResponse();
+        $response->setId($entity->getId())
+                 ->setCombinationHash($entity->getCombinationId()->toString())
+                 ->setModNames($entity->getModNames())
+                 ->setStatus($entity->getStatus())
+                 ->setErrorMessage($entity->getErrorMessage())
+                 ->setCreationTime($entity->getCreationTime())
+                 ->setExportTime($entity->getExportTime())
+                 ->setImportTime($entity->getImportTime());
+
+        return new ClientResponse($response);
     }
 }
