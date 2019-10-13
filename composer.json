@@ -18,9 +18,9 @@
     "bluepsyduck/mapper-manager": "^1.1",
     "bluepsyduck/zend-autowire-factory": "^1.1",
     "doctrine/cache": "^1.8",
-    "bluepsyduck/container-interop-doctrine-migrations": "dev-master",
+    "bluepsyduck/container-interop-doctrine-migrations": "^1.0",
     "doctrine/orm": "^2.6",
-    "factorio-item-browser/export-queue-client": "dev-master",
+    "factorio-item-browser/export-queue-client": "^1.0",
     "ramsey/uuid": "^3.8",
     "ramsey/uuid-doctrine": "^1.5",
     "zendframework/zend-config-aggregator": "^1.0",
@@ -67,7 +67,7 @@
       "mkdir -p data/cache && chmod 0777 data/cache"
     ],
     "test": [
-      "#@composer validate --strict",
+      "@composer validate --strict",
       "@phpunit",
       "@coverage-check",
       "@phpcs",

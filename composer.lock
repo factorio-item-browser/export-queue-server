@@ -4,11 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5eaa8d6a0f1cd44ab7a543ea7ca3e655",
+    "content-hash": "e61ee05be7f3e855e28f18f7aa757c75",
     "packages": [
         {
             "name": "bluepsyduck/container-interop-doctrine-migrations",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BluePsyduck/container-interop-doctrine-migrations.git",
@@ -1191,16 +1191,16 @@
         },
         {
             "name": "factorio-item-browser/export-queue-client",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/factorio-item-browser/export-queue-client.git",
-                "reference": "004cedac7ac1b338d845b624f5d0a8b804ebd7b5"
+                "reference": "fa641be30ae0951bc0e7bb9de9c0fb27a6ed4b49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/factorio-item-browser/export-queue-client/zipball/004cedac7ac1b338d845b624f5d0a8b804ebd7b5",
-                "reference": "004cedac7ac1b338d845b624f5d0a8b804ebd7b5",
+                "url": "https://api.github.com/repos/factorio-item-browser/export-queue-client/zipball/fa641be30ae0951bc0e7bb9de9c0fb27a6ed4b49",
+                "reference": "fa641be30ae0951bc0e7bb9de9c0fb27a6ed4b49",
                 "shasum": ""
             },
             "require": {
@@ -1251,7 +1251,7 @@
                 "export",
                 "queue"
             ],
-            "time": "2019-10-12T11:20:14+00:00"
+            "time": "2019-10-13T10:13:38+00:00"
         },
         {
             "name": "fig/http-message-util",
@@ -6828,10 +6828,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "bluepsyduck/container-interop-doctrine-migrations": 20,
-        "factorio-item-browser/export-queue-client": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
