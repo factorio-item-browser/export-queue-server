@@ -45,7 +45,7 @@ class JobStatusType extends Type
      */
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
     {
-        $values = implode(',', array_map(function(string $value) use ($platform): string {
+        $values = implode(',', array_map(function (string $value) use ($platform): string {
             return $platform->quoteStringLiteral($value);
         }, self::VALUES));
 

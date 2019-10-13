@@ -22,7 +22,7 @@ class JobStatusTypeTest extends TestCase
 {
     /**
      * The instance to test against
-     * @var JobStatusType
+     * @var Type
      */
     protected static $type;
 

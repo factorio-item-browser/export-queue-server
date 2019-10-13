@@ -70,7 +70,7 @@ class AgentTest extends TestCase
         $entity = new Agent();
 
         $this->assertSame($entity, $entity->setCanCreate($canCreate));
-        $this->assertSame($canCreate, $entity->getCanCreate());
+        $this->assertTrue($entity->getCanCreate());
     }
 
     /**
@@ -84,7 +84,7 @@ class AgentTest extends TestCase
         $entity = new Agent();
 
         $this->assertSame($entity, $entity->setCanExport($canExport));
-        $this->assertSame($canExport, $entity->getCanExport());
+        $this->assertTrue($entity->getCanExport());
     }
 
     /**
@@ -98,6 +98,6 @@ class AgentTest extends TestCase
         $entity = new Agent();
 
         $this->assertSame($entity, $entity->setCanImport($canImport));
-        $this->assertSame($canImport, $entity->getCanImport());
+        $this->assertTrue($entity->getCanImport());
     }
 }

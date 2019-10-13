@@ -57,12 +57,12 @@ class JobRepository
 
     /**
      * Find all export jobs matching the specified criteria.
-     * @param UuidInterface $combinationId
+     * @param UuidInterface|null $combinationId
      * @param string $status
      * @param int $limit
      * @return array|Job[]
      */
-    public function findAll(UuidInterface $combinationId, string $status, int $limit): array
+    public function findAll(?UuidInterface $combinationId, string $status, int $limit): array
     {
         $queryBuilder = $this->entityManager->createQueryBuilder();
         $queryBuilder->select('j')
@@ -70,7 +70,7 @@ class JobRepository
                      ->addOrderBy('j.creationTime', 'ASC')
                      ->setMaxResults($limit);
 
-        if ($combinationId !== '') {
+        if ($combinationId !== null) {
             $queryBuilder->andWhere('j.combinationId = :combinationId')
                          ->setParameter('combinationId', $combinationId, UuidBinaryType::NAME);
         }

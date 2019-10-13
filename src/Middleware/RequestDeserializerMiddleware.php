@@ -101,7 +101,7 @@ class RequestDeserializerMiddleware implements MiddlewareInterface
     {
         $callback = [$clientRequest, 'setJobId'];
         if (is_callable($callback)) {
-            call_user_func($callback, $request->getAttribute('job-id'));
+            call_user_func($callback, $request->getAttribute('job-id', ''));
         }
     }
 
