@@ -13,7 +13,7 @@ use FactorioItemBrowser\ExportQueue\Client\Request\RequestInterface;
 use FactorioItemBrowser\ExportQueue\Client\Response\Job\DetailsResponse;
 use FactorioItemBrowser\ExportQueue\Server\Entity\Job;
 use FactorioItemBrowser\ExportQueue\Server\Exception\JobNotFoundException;
-use FactorioItemBrowser\ExportQueue\Server\Handler\Job\GetHandler;
+use FactorioItemBrowser\ExportQueue\Server\Handler\Job\DetailsHandler;
 use FactorioItemBrowser\ExportQueue\Server\Repository\JobRepository;
 use FactorioItemBrowser\ExportQueue\Server\Response\ClientResponse;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -23,13 +23,13 @@ use Ramsey\Uuid\Uuid;
 use ReflectionException;
 
 /**
- * The PHPUnit test of the GetHandler class.
+ * The PHPUnit test of the DetailsHandler class.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversDefaultClass \FactorioItemBrowser\ExportQueue\Server\Handler\Job\GetHandler
+ * @coversDefaultClass \FactorioItemBrowser\ExportQueue\Server\Handler\Job\DetailsHandler
  */
-class GetHandlerTest extends TestCase
+class DetailsHandlerTest extends TestCase
 {
     use ReflectionTrait;
 
@@ -63,7 +63,7 @@ class GetHandlerTest extends TestCase
      */
     public function testConstruct(): void
     {
-        $handler = new GetHandler($this->jobRepository, $this->mapperManager);
+        $handler = new DetailsHandler($this->jobRepository, $this->mapperManager);
 
         $this->assertSame($this->jobRepository, $this->extractProperty($handler, 'jobRepository'));
         $this->assertSame($this->mapperManager, $this->extractProperty($handler, 'mapperManager'));
@@ -105,7 +105,7 @@ class GetHandlerTest extends TestCase
                             ->method('map')
                             ->with($this->identicalTo($job), $this->isInstanceOf(DetailsResponse::class));
 
-        $handler = new GetHandler($this->jobRepository, $this->mapperManager);
+        $handler = new DetailsHandler($this->jobRepository, $this->mapperManager);
         $result = $handler->handle($request);
 
         $this->assertInstanceOf(ClientResponse::class, $result);
@@ -145,7 +145,7 @@ class GetHandlerTest extends TestCase
 
         $this->expectException(JobNotFoundException::class);
 
-        $handler = new GetHandler($this->jobRepository, $this->mapperManager);
+        $handler = new DetailsHandler($this->jobRepository, $this->mapperManager);
         $handler->handle($request);
     }
 }

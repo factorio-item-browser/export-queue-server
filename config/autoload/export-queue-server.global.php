@@ -19,11 +19,10 @@ return [
     ConfigKey::PROJECT => [
         ConfigKey::EXPORT_QUEUE_SERVER => [
             ConfigKey::REQUEST_CLASSES_BY_ROUTES => [
-                RouteName::JOB_ADD => Request\Job\CreateRequest::class,
-                RouteName::JOB_GET => Request\Job\DetailsRequest::class,
+                RouteName::JOB_CREATE => Request\Job\CreateRequest::class,
+                RouteName::JOB_DETAILS => Request\Job\DetailsRequest::class,
                 RouteName::JOB_LIST => Request\Job\ListRequest::class,
                 RouteName::JOB_UPDATE => Request\Job\UpdateRequest::class,
-                RouteName::NODE_PING => Request\Node\PingRequest::class,
             ],
         ],
     ],

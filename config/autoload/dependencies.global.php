@@ -25,8 +25,8 @@ return [
             ErrorResponseGenerator::class => Response\ErrorResponseGenerator::class,
         ],
         'factories' => [
-            Handler\Job\AddHandler::class => AutoWireFactory::class,
-            Handler\Job\GetHandler::class => AutoWireFactory::class,
+            Handler\Job\CreateHandler::class => AutoWireFactory::class,
+            Handler\Job\DetailsHandler::class => AutoWireFactory::class,
             Handler\Job\ListHandler::class => AutoWireFactory::class,
             Handler\Job\UpdateHandler::class => AutoWireFactory::class,
 

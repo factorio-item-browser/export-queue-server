@@ -6,15 +6,11 @@ namespace FactorioItemBrowser\ExportQueue\Server\Handler\Job;
 
 use BluePsyduck\MapperManager\Exception\MapperException;
 use BluePsyduck\MapperManager\MapperManagerInterface;
-use DateTime;
-use Exception;
-use FactorioItemBrowser\ExportQueue\Client\Constant\JobStatus;
-use FactorioItemBrowser\ExportQueue\Client\Request\Job\CreateRequest;
+use FactorioItemBrowser\ExportQueue\Client\Request\Job\DetailsRequest;
 use FactorioItemBrowser\ExportQueue\Client\Request\RequestInterface;
 use FactorioItemBrowser\ExportQueue\Client\Response\Job\DetailsResponse;
-use FactorioItemBrowser\ExportQueue\Server\Entity\Agent;
-use FactorioItemBrowser\ExportQueue\Server\Entity\Job;
-use FactorioItemBrowser\ExportQueue\Server\Exception\ActionNotAllowedException;
+use FactorioItemBrowser\ExportQueue\Server\Exception\ExportQueueServerException;
+use FactorioItemBrowser\ExportQueue\Server\Exception\JobNotFoundException;
 use FactorioItemBrowser\ExportQueue\Server\Repository\JobRepository;
 use FactorioItemBrowser\ExportQueue\Server\Response\ClientResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -23,12 +19,12 @@ use Psr\Http\Server\RequestHandlerInterface;
 use Ramsey\Uuid\Uuid;
 
 /**
- * The handler for adding a job to the export queue.
+ * The handler for getting job details.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class AddHandler implements RequestHandlerInterface
+class DetailsHandler implements RequestHandlerInterface
 {
     /**
      * The job repository.
@@ -57,43 +53,22 @@ class AddHandler implements RequestHandlerInterface
      * Handles a request and produces a response.
      * @param ServerRequestInterface $request
      * @return ResponseInterface
-     * @throws Exception
+     * @throws ExportQueueServerException
      * @throws MapperException
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        /* @var Agent $agent */
-        $agent = $request->getAttribute(Agent::class);
-        /* @var CreateRequest $clientRequest */
+        /* @var DetailsRequest $clientRequest */
         $clientRequest = $request->getAttribute(RequestInterface::class);
+        $jobId = Uuid::fromString($clientRequest->getJobId());
 
-        if (!$agent->getCanCreate()) {
-            throw new ActionNotAllowedException('Creating new exports');
+        $entity = $this->jobRepository->findById($jobId);
+        if ($entity === null) {
+            throw new JobNotFoundException($jobId);
         }
 
-        $job = $this->createJobEntity($clientRequest, $agent);
-        $this->jobRepository->persist($job);
-
         $response = new DetailsResponse();
-        $this->mapperManager->map($job, $response);
+        $this->mapperManager->map($entity, $response);
         return new ClientResponse($response);
-    }
-
-    /**
-     * Creates a new job entity from the request.
-     * @param CreateRequest $request
-     * @param Agent $agent
-     * @return Job
-     * @throws Exception
-     */
-    protected function createJobEntity(CreateRequest $request, Agent $agent): Job
-    {
-        $job = new Job();
-        $job->setCombinationId(Uuid::fromString($request->getCombinationId()))
-            ->setModNames($request->getModNames())
-            ->setStatus(JobStatus::QUEUED)
-            ->setCreator($agent->getName())
-            ->setCreationTime(new DateTime());
-        return $job;
     }
 }

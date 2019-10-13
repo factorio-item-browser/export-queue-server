@@ -12,8 +12,8 @@ namespace FactorioItemBrowser\ExportQueue\Server\Constant;
  */
 interface RouteName
 {
-    public const JOB_ADD = 'job.add';
-    public const JOB_GET = 'job.get';
+    public const JOB_CREATE = 'job.create';
+    public const JOB_DETAILS = 'job.details';
     public const JOB_LIST = 'job.list';
     public const JOB_UPDATE = 'job.update';
 

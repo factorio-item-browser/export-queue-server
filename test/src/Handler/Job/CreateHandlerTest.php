@@ -15,7 +15,7 @@ use FactorioItemBrowser\ExportQueue\Client\Response\Job\DetailsResponse;
 use FactorioItemBrowser\ExportQueue\Server\Entity\Agent;
 use FactorioItemBrowser\ExportQueue\Server\Entity\Job;
 use FactorioItemBrowser\ExportQueue\Server\Exception\ActionNotAllowedException;
-use FactorioItemBrowser\ExportQueue\Server\Handler\Job\AddHandler;
+use FactorioItemBrowser\ExportQueue\Server\Handler\Job\CreateHandler;
 use FactorioItemBrowser\ExportQueue\Server\Repository\JobRepository;
 use FactorioItemBrowser\ExportQueue\Server\Response\ClientResponse;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -25,13 +25,13 @@ use Ramsey\Uuid\Uuid;
 use ReflectionException;
 
 /**
- * The PHPUnit test of the AddHandler class.
+ * The PHPUnit test of the CreateHandler class.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- * @coversDefaultClass \FactorioItemBrowser\ExportQueue\Server\Handler\Job\AddHandler
+ * @coversDefaultClass \FactorioItemBrowser\ExportQueue\Server\Handler\Job\CreateHandler
  */
-class AddHandlerTest extends TestCase
+class CreateHandlerTest extends TestCase
 {
     use ReflectionTrait;
 
@@ -65,7 +65,7 @@ class AddHandlerTest extends TestCase
      */
     public function testConstruct(): void
     {
-        $handler = new AddHandler($this->jobRepository, $this->mapperManager);
+        $handler = new CreateHandler($this->jobRepository, $this->mapperManager);
 
         $this->assertSame($this->jobRepository, $this->extractProperty($handler, 'jobRepository'));
         $this->assertSame($this->mapperManager, $this->extractProperty($handler, 'mapperManager'));
@@ -111,8 +111,8 @@ class AddHandlerTest extends TestCase
                             ->method('map')
                             ->with($this->identicalTo($job), $this->isInstanceOf(DetailsResponse::class));
 
-        /* @var AddHandler&MockObject $handler */
-        $handler = $this->getMockBuilder(AddHandler::class)
+        /* @var CreateHandler&MockObject $handler */
+        $handler = $this->getMockBuilder(CreateHandler::class)
                         ->onlyMethods(['createJobEntity'])
                         ->setConstructorArgs([$this->jobRepository, $this->mapperManager])
                         ->getMock();
@@ -162,8 +162,8 @@ class AddHandlerTest extends TestCase
         $this->mapperManager->expects($this->never())
                             ->method('map');
 
-        /* @var AddHandler&MockObject $handler */
-        $handler = $this->getMockBuilder(AddHandler::class)
+        /* @var CreateHandler&MockObject $handler */
+        $handler = $this->getMockBuilder(CreateHandler::class)
                         ->onlyMethods(['createJobEntity'])
                         ->setConstructorArgs([$this->jobRepository, $this->mapperManager])
                         ->getMock();
@@ -202,7 +202,7 @@ class AddHandlerTest extends TestCase
               ->method('getName')
               ->willReturn($agentName);
 
-        $handler = new AddHandler($this->jobRepository, $this->mapperManager);
+        $handler = new CreateHandler($this->jobRepository, $this->mapperManager);
         $result = $this->invokeMethod($handler, 'createJobEntity', $request, $agent);
 
         /* @var Job $result */

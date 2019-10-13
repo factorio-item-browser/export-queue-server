@@ -21,7 +21,7 @@ paths:
     post:
       summary:
         Adds a new export job to the queue.
-      operationId: job.add
+      operationId: job.create
       tags:
         - Jobs
       parameters:
@@ -49,7 +49,7 @@ paths:
   /job/{job-id}:
     get:
       summary: Provides the details to the specified export job.
-      operationId: job.get
+      operationId: job.details
       tags:
         - Jobs
       parameters:
