@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\ExportQueue\Server\Handler\Job;
 
 use BluePsyduck\MapperManager\MapperManagerInterface;
+use Exception;
 use FactorioItemBrowser\ExportQueue\Client\Entity\Job as ClientJob;
 use FactorioItemBrowser\ExportQueue\Client\Request\Job\ListRequest;
 use FactorioItemBrowser\ExportQueue\Client\Request\RequestInterface;
@@ -58,8 +59,14 @@ class ListHandler implements RequestHandlerInterface
         /* @var ListRequest $clientRequest */
         $clientRequest = $request->getAttribute(RequestInterface::class);
 
+        try {
+            $combinationId = Uuid::fromString($clientRequest->getCombinationId());
+        } catch (Exception $e) {
+            $combinationId = null;
+        }
+
         $jobs = $this->jobRepository->findAll(
-            Uuid::fromString($clientRequest->getCombinationId()),
+            $combinationId,
             $clientRequest->getStatus(),
             $clientRequest->getLimit()
         );

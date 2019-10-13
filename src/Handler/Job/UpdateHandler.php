@@ -91,7 +91,7 @@ class UpdateHandler implements RequestHandlerInterface
 
         $this->checkStatusChange($clientRequest, $job);
         $this->checkPermission($clientRequest, $agent);
-        $this->changeJob($job, $clientRequest, $agent);
+        $this->modifyJobEntity($job, $clientRequest, $agent);
 
         $response = new DetailsResponse();
         $this->mapperManager->map($job, $response);
@@ -152,13 +152,13 @@ class UpdateHandler implements RequestHandlerInterface
     }
 
     /**
-     * Changes the job entity.
+     * Modifies the job entity.
      * @param Job $job
      * @param UpdateRequest $request
      * @param Agent $agent
      * @throws Exception
      */
-    protected function changeJob(Job $job, UpdateRequest $request, Agent $agent): void
+    protected function modifyJobEntity(Job $job, UpdateRequest $request, Agent $agent): void
     {
         $job->setStatus($request->getStatus())
             ->setErrorMessage($request->getErrorMessage());

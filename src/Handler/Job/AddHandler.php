@@ -71,16 +71,29 @@ class AddHandler implements RequestHandlerInterface
             throw new ActionNotAllowedException('Creating new exports');
         }
 
-        $job = new Job();
-        $job->setCombinationId(Uuid::fromString($clientRequest->getCombinationId()))
-            ->setModNames($clientRequest->getModNames())
-            ->setStatus(JobStatus::QUEUED)
-            ->setCreator($agent->getName())
-            ->setCreationTime(new DateTime());
+        $job = $this->createJobEntity($clientRequest, $agent);
         $this->jobRepository->persist($job);
 
         $response = new DetailsResponse();
         $this->mapperManager->map($job, $response);
         return new ClientResponse($response);
+    }
+
+    /**
+     * Creates a new job entity from the request.
+     * @param CreateRequest $request
+     * @param Agent $agent
+     * @return Job
+     * @throws Exception
+     */
+    protected function createJobEntity(CreateRequest $request, Agent $agent): Job
+    {
+        $job = new Job();
+        $job->setCombinationId(Uuid::fromString($request->getCombinationId()))
+            ->setModNames($request->getModNames())
+            ->setStatus(JobStatus::QUEUED)
+            ->setCreator($agent->getName())
+            ->setCreationTime(new DateTime());
+        return $job;
     }
 }
