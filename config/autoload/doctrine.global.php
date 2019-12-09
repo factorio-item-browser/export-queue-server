@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\ExportQueue\Server;
 
-use Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain;
 use Doctrine\ORM\Mapping\Driver\SimplifiedXmlDriver;
 use Ramsey\Uuid\Doctrine\UuidBinaryType;
 
@@ -26,23 +25,16 @@ return [
         ],
         'driver' => [
             'orm_default' => [
-                'class' => MappingDriverChain::class,
-                'drivers' => [
-                    'FactorioItemBrowser\ExportQueue\Server\Entity' => 'fib-export-queue-database',
-                ],
-            ],
-
-            'fib-export-queue-database' => [
                 'class' => SimplifiedXmlDriver::class,
                 'cache' => 'array',
                 'paths' => [
-                    __DIR__ . '/../../config/doctrine' => 'FactorioItemBrowser\ExportQueue\Server\Entity',
+                    'config/doctrine' => 'FactorioItemBrowser\ExportQueue\Server\Entity',
                 ],
             ],
         ],
         'migrations_configuration' => [
             'orm_default' => [
-                'directory' => __DIR__ . '/../../data/migrations',
+                'directory' => 'data/migrations',
                 'name'      => 'FactorioItemBrowser ExportQueue Database Migrations',
                 'namespace' => 'FactorioItemBrowser\ExportQueue\Server\Migrations',
                 'table'     => '_Migrations',

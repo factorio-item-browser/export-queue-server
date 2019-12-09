@@ -15,10 +15,10 @@
   "require": {
     "php": "^7.2",
     "ext-PDO": "*",
+    "bluepsyduck/container-interop-doctrine-migrations": "^1.0",
     "bluepsyduck/mapper-manager": "^1.1",
     "bluepsyduck/zend-autowire-factory": "^1.1",
     "doctrine/cache": "^1.8",
-    "bluepsyduck/container-interop-doctrine-migrations": "^1.0",
     "doctrine/orm": "^2.6",
     "factorio-item-browser/export-queue-client": "^1.0",
     "ramsey/uuid": "^3.8",

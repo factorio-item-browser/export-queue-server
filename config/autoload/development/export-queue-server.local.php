@@ -18,7 +18,7 @@ return [
         ConfigKey::EXPORT_QUEUE_SERVER => [
             ConfigKey::AGENTS => [
                 [
-                    ConfigKey::AGENT_NAME => 'debug',
+                    ConfigKey::AGENT_NAME => 'development',
                     ConfigKey::AGENT_ACCESS_KEY => 'factorio-item-browser',
                     ConfigKey::AGENT_CAN_CREATE => true,
                     ConfigKey::AGENT_CAN_EXPORT => true,

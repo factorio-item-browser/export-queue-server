@@ -16,5 +16,5 @@ use Zend\ConfigAggregator\ConfigAggregator;
 return [
     ConfigAggregator::ENABLE_CACHE => true,
     'debug' => false,
-    'version' => 'alpha',
+    'version' => '1.0.0',
 ];
