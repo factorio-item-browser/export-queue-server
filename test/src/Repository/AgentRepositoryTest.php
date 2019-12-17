@@ -40,7 +40,7 @@ class AgentRepositoryTest extends TestCase
 
     /**
      * Provides the data for the getByAccessKey test.
-     * @return array
+     * @return array<mixed>
      */
     public function provideGetByAccessKey(): array
     {

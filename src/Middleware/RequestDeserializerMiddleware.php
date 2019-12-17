@@ -33,14 +33,14 @@ class RequestDeserializerMiddleware implements MiddlewareInterface
 
     /**
      * The request classes by their corresponding routes.
-     * @var array|string[]
+     * @var array<class-string<RequestInterface>>
      */
     protected $requestClassesByRoutes;
 
     /**
      * RequestDeserializerMiddleware constructor.
      * @param SerializerInterface $exportQueueClientSerializer
-     * @param array|string[] $requestClassesByRoutes
+     * @param array<class-string<RequestInterface>> $requestClassesByRoutes
      */
     public function __construct(SerializerInterface $exportQueueClientSerializer, array $requestClassesByRoutes)
     {
@@ -74,11 +74,11 @@ class RequestDeserializerMiddleware implements MiddlewareInterface
     /**
      * Deserializes the request body into a client request instance.
      * @param ServerRequestInterface $request
-     * @param string $requestClass
+     * @param class-string<RequestInterface> $requestClass
      * @return RequestInterface
      * @throws ExportQueueServerException
      */
-    protected function deserializeBody(ServerRequestInterface $request, string $requestClass): RequestInterface
+    protected function deserializeBody(ServerRequestInterface $request, $requestClass): RequestInterface
     {
         $content = $request->getBody()->getContents();
         if ($content === '') {

@@ -21,7 +21,7 @@ class AgentRepositoryFactory implements FactoryInterface
      * Creates the agent repository.
      * @param ContainerInterface $container
      * @param string $requestedName
-     * @param null|array $options
+     * @param null|array<mixed> $options
      * @return AgentRepository
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): AgentRepository
@@ -39,7 +39,7 @@ class AgentRepositoryFactory implements FactoryInterface
 
     /**
      * Creates an agent entity from its configuration.
-     * @param array $agentConfig
+     * @param array<mixed> $agentConfig
      * @return Agent
      */
     protected function createAgent(array $agentConfig): Agent

@@ -198,7 +198,7 @@ class UpdateHandlerTest extends TestCase
 
     /**
      * Provides the data for the checkStatusChange test.
-     * @return array
+     * @return array<mixed>
      */
     public function provideCheckStatusChange(): array
     {
@@ -264,7 +264,7 @@ class UpdateHandlerTest extends TestCase
 
     /**
      * Provides the data for the checkPermission test.
-     * @return array
+     * @return array<mixed>
      */
     public function provideCheckPermission(): array
     {

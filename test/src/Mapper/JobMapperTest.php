@@ -24,7 +24,7 @@ class JobMapperTest extends TestCase
 {
     /**
      * Provides the data for the supports test.
-     * @return array
+     * @return array<mixed>
      */
     public function provideSupports(): array
     {

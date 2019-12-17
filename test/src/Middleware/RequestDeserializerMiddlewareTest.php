@@ -57,7 +57,7 @@ class RequestDeserializerMiddlewareTest extends TestCase
      */
     public function testConstruct(): void
     {
-        $requestClassesByRoutes = ['abc' => 'def'];
+        $requestClassesByRoutes = ['abc' => RequestInterface::class];
 
         $middleware = new RequestDeserializerMiddleware($this->serializer, $requestClassesByRoutes);
 
