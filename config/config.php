@@ -9,7 +9,7 @@ declare(strict_types=1);
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-namespace FactorioItemBrowser\Api\Server;
+namespace FactorioItemBrowser\ExportQueue\Server;
 
 use Zend\ConfigAggregator\ArrayProvider;
 use Zend\ConfigAggregator\ConfigAggregator;

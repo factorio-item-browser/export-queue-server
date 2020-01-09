@@ -10,7 +10,7 @@ namespace FactorioItemBrowser\ExportQueue\Server\Constant;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class ConfigKey
+interface ConfigKey
 {
     /**
      * The key holding the name of the project.

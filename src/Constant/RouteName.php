@@ -16,6 +16,4 @@ interface RouteName
     public const JOB_DETAILS = 'job.details';
     public const JOB_LIST = 'job.list';
     public const JOB_UPDATE = 'job.update';
-
-    public const NODE_PING = 'node.ping';
 }
