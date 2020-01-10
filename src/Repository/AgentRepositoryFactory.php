@@ -7,7 +7,7 @@ namespace FactorioItemBrowser\ExportQueue\Server\Repository;
 use FactorioItemBrowser\ExportQueue\Server\Constant\ConfigKey;
 use FactorioItemBrowser\ExportQueue\Server\Entity\Agent;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * The factory of the AgentRepository class.

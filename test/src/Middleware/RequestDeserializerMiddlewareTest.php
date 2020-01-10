@@ -14,6 +14,7 @@ use FactorioItemBrowser\ExportQueue\Server\Exception\ExportQueueServerException;
 use FactorioItemBrowser\ExportQueue\Server\Exception\MalformedRequestException;
 use FactorioItemBrowser\ExportQueue\Server\Middleware\RequestDeserializerMiddleware;
 use JMS\Serializer\SerializerInterface;
+use Mezzio\Router\RouteResult;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
@@ -21,7 +22,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use ReflectionException;
-use Zend\Expressive\Router\RouteResult;
 
 /**
  * The PHPUnit test of the RequestDeserializerMiddleware class.

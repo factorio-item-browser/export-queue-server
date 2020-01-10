@@ -11,11 +11,11 @@ use FactorioItemBrowser\ExportQueue\Client\Request\RequestInterface;
 use FactorioItemBrowser\ExportQueue\Server\Exception\ExportQueueServerException;
 use FactorioItemBrowser\ExportQueue\Server\Exception\MalformedRequestException;
 use JMS\Serializer\SerializerInterface;
+use Mezzio\Router\RouteResult;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zend\Expressive\Router\RouteResult;
 
 /**
  * The middleware for deserializing the request.

@@ -12,9 +12,9 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\ExportQueue\Server;
 
 use FactorioItemBrowser\ExportQueue\Server\Constant\RouteName;
+use Mezzio\Application;
+use Mezzio\MiddlewareFactory;
 use Psr\Container\ContainerInterface;
-use Zend\Expressive\Application;
-use Zend\Expressive\MiddlewareFactory;
 
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
     $regexUuid = '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}';

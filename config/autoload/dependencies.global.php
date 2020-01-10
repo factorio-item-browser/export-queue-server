@@ -12,12 +12,13 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\ExportQueue\Server;
 
 use BluePsyduck\ContainerInteropDoctrineMigrations\MigrationsConfigurationFactory;
-use BluePsyduck\ZendAutoWireFactory\AutoWireFactory;
+use BluePsyduck\LaminasAutoWireFactory\AutoWireFactory;
 use ContainerInteropDoctrine\EntityManagerFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use FactorioItemBrowser\ExportQueue\Server\Constant\ConfigKey;
-use Zend\Expressive\Middleware\ErrorResponseGenerator;
-use function BluePsyduck\ZendAutoWireFactory\readConfig;
+use Mezzio\Middleware\ErrorResponseGenerator;
+
+use function BluePsyduck\LaminasAutoWireFactory\readConfig;
 
 return [
     'dependencies' => [

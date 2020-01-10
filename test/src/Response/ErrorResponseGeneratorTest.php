@@ -8,13 +8,13 @@ use BluePsyduck\TestHelper\ReflectionTrait;
 use Exception;
 use FactorioItemBrowser\ExportQueue\Server\Exception\ExportQueueServerException;
 use FactorioItemBrowser\ExportQueue\Server\Response\ErrorResponseGenerator;
+use Laminas\Diactoros\Response\JsonResponse;
+use Laminas\Log\LoggerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use ReflectionException;
-use Zend\Diactoros\Response\JsonResponse;
-use Zend\Log\LoggerInterface;
 
 /**
  * The PHPUnit test of the ErrorResponseGenerator class.
