@@ -7,7 +7,7 @@ info:
   contact:
     name: "BluePsyduck"
     email: "bluepsyduck@gmx.com"
-  version: "alpha"
+  version: "1.0.0"
 servers:
   - url: "https://queue.factorio-item-browser.com/"
     description: "Live API server"
