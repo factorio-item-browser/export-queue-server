@@ -9,6 +9,7 @@ use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\QueryBuilder;
+use FactorioItemBrowser\ExportQueue\Client\Constant\ListOrder;
 use FactorioItemBrowser\ExportQueue\Server\Doctrine\Type\JobStatusType;
 use FactorioItemBrowser\ExportQueue\Server\Entity\Job;
 use FactorioItemBrowser\ExportQueue\Server\Repository\JobRepository;
@@ -170,6 +171,7 @@ class JobRepositoryTest extends TestCase
         /* @var UuidInterface&MockObject $combinationId */
         $combinationId = $this->createMock(UuidInterface::class);
         $status = 'abc';
+        $order = ListOrder::LATEST;
         $limit = 42;
 
         $jobs = [
@@ -195,7 +197,7 @@ class JobRepositoryTest extends TestCase
                      ->willReturnSelf();
         $queryBuilder->expects($this->once())
                      ->method('addOrderBy')
-                     ->with($this->identicalTo('j.creationTime'), $this->identicalTo('ASC'))
+                     ->with($this->identicalTo('j.creationTime'), $this->identicalTo('DESC'))
                      ->willReturnSelf();
         $queryBuilder->expects($this->once())
                      ->method('setMaxResults')
@@ -232,7 +234,7 @@ class JobRepositoryTest extends TestCase
                             ->willReturn($queryBuilder);
 
         $repository = new JobRepository($this->entityManager);
-        $result = $repository->findAll($combinationId, $status, $limit);
+        $result = $repository->findAll($combinationId, $status, $order, $limit);
 
         $this->assertSame($jobs, $result);
     }
@@ -243,6 +245,7 @@ class JobRepositoryTest extends TestCase
      */
     public function testFindAllWithoutConditions(): void
     {
+        $order = 'abc';
         $limit = 42;
 
         $jobs = [
@@ -287,7 +290,7 @@ class JobRepositoryTest extends TestCase
                             ->willReturn($queryBuilder);
 
         $repository = new JobRepository($this->entityManager);
-        $result = $repository->findAll(null, '', $limit);
+        $result = $repository->findAll(null, '', $order, $limit);
 
         $this->assertSame($jobs, $result);
     }

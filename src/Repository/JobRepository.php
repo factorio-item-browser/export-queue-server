@@ -6,6 +6,7 @@ namespace FactorioItemBrowser\ExportQueue\Server\Repository;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
+use FactorioItemBrowser\ExportQueue\Client\Constant\ListOrder;
 use FactorioItemBrowser\ExportQueue\Server\Doctrine\Type\JobStatusType;
 use FactorioItemBrowser\ExportQueue\Server\Entity\Job;
 use Ramsey\Uuid\Doctrine\UuidBinaryType;
@@ -59,15 +60,16 @@ class JobRepository
      * Find all export jobs matching the specified criteria.
      * @param UuidInterface|null $combinationId
      * @param string $status
+     * @param string $order
      * @param int $limit
      * @return array|Job[]
      */
-    public function findAll(?UuidInterface $combinationId, string $status, int $limit): array
+    public function findAll(?UuidInterface $combinationId, string $status, string $order, int $limit): array
     {
         $queryBuilder = $this->entityManager->createQueryBuilder();
         $queryBuilder->select('j')
                      ->from(Job::class, 'j')
-                     ->addOrderBy('j.creationTime', 'ASC')
+                     ->addOrderBy('j.creationTime', $order === ListOrder::LATEST ? 'DESC' : 'ASC')
                      ->setMaxResults($limit);
 
         if ($combinationId !== null) {

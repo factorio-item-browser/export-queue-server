@@ -68,6 +68,7 @@ class ListHandler implements RequestHandlerInterface
         $jobs = $this->jobRepository->findAll(
             $combinationId,
             $clientRequest->getStatus(),
+            $clientRequest->getOrder(),
             $clientRequest->getLimit()
         );
 

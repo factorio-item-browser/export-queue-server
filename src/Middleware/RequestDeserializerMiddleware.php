@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\ExportQueue\Server\Middleware;
 
 use Exception;
+use FactorioItemBrowser\ExportQueue\Client\Constant\ListOrder;
 use FactorioItemBrowser\ExportQueue\Client\Constant\ParameterName;
 use FactorioItemBrowser\ExportQueue\Client\Request\Job\ListRequest;
 use FactorioItemBrowser\ExportQueue\Client\Request\RequestInterface;
@@ -117,6 +118,7 @@ class RequestDeserializerMiddleware implements MiddlewareInterface
 
             $clientRequest->setCombinationId($queryParams[ParameterName::COMBINATION_ID] ?? '')
                           ->setStatus($queryParams[ParameterName::STATUS] ?? '')
+                          ->setOrder($queryParams[ParameterName::ORDER] ?? ListOrder::CREATION_TIME)
                           ->setLimit(((int) $queryParams[ParameterName::LIMIT]) ?? 0);
         }
     }

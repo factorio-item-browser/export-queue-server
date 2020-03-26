@@ -111,6 +111,16 @@ paths:
             $ref: "#/components/schemas/status"
           required: false
           example: queued
+        - name: order
+          in: query
+          description: The order to use for the results.
+          schema:
+            type: string
+            enum:
+              - creationTime
+              - latest
+          required: false
+          example: creationTime
         - name: limit
           in: query
           description: The number of jobs to return.

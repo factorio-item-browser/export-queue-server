@@ -75,6 +75,7 @@ class ListHandlerTest extends TestCase
         $combinationIdString = '01234567-0123-0123-0123-0123456789ab';
         $combinationId = Uuid::fromString($combinationIdString);
         $status = 'abc';
+        $order = 'def';
         $limit = 42;
 
         /* @var Job&MockObject $job1 */
@@ -91,6 +92,9 @@ class ListHandlerTest extends TestCase
                       ->method('getStatus')
                       ->willReturn($status);
         $clientRequest->expects($this->once())
+                      ->method('getOrder')
+                      ->willReturn($order);
+        $clientRequest->expects($this->once())
                       ->method('getLimit')
                       ->willReturn($limit);
 
@@ -106,6 +110,7 @@ class ListHandlerTest extends TestCase
                             ->with(
                                 $this->equalTo($combinationId),
                                 $this->identicalTo($status),
+                                $this->identicalTo($order),
                                 $this->identicalTo($limit)
                             )
                             ->willReturn([$job1, $job2]);
@@ -131,6 +136,7 @@ class ListHandlerTest extends TestCase
     {
         $combinationIdString = '';
         $status = 'abc';
+        $order = 'def';
         $limit = 42;
 
         /* @var Job&MockObject $job1 */
@@ -147,6 +153,9 @@ class ListHandlerTest extends TestCase
                       ->method('getStatus')
                       ->willReturn($status);
         $clientRequest->expects($this->once())
+                      ->method('getOrder')
+                      ->willReturn($order);
+        $clientRequest->expects($this->once())
                       ->method('getLimit')
                       ->willReturn($limit);
 
@@ -162,6 +171,7 @@ class ListHandlerTest extends TestCase
                             ->with(
                                 $this->isNull(),
                                 $this->identicalTo($status),
+                                $this->identicalTo($order),
                                 $this->identicalTo($limit)
                             )
                             ->willReturn([$job1, $job2]);

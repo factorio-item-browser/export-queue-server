@@ -356,10 +356,12 @@ class RequestDeserializerMiddlewareTest extends TestCase
     {
         $combinationId = 'abc';
         $status = 'def';
+        $order = 'ghi';
         $limit = 42;
         $queryParams = [
             ParameterName::COMBINATION_ID => 'abc',
             ParameterName::STATUS => 'def',
+            ParameterName::ORDER => 'ghi',
             ParameterName::LIMIT => '42',
         ];
 
@@ -378,6 +380,10 @@ class RequestDeserializerMiddlewareTest extends TestCase
         $clientRequest->expects($this->once())
                       ->method('setStatus')
                       ->with($this->identicalTo($status))
+                      ->willReturnSelf();
+        $clientRequest->expects($this->once())
+                      ->method('setOrder')
+                      ->with($this->identicalTo($order))
                       ->willReturnSelf();
         $clientRequest->expects($this->once())
                       ->method('setLimit')
