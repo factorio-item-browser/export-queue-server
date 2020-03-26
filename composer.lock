@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "02aca2d70b9bbcb15a093a29cc11e321",
+    "content-hash": "aa9bdfb96f564bfadff0a33cac8eb7c5",
     "packages": [
         {
             "name": "bluepsyduck/container-interop-doctrine-migrations",
@@ -1219,16 +1219,16 @@
         },
         {
             "name": "factorio-item-browser/export-queue-client",
-            "version": "dev-project-phoenix",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/factorio-item-browser/export-queue-client.git",
-                "reference": "a64bc8cca19bb35df30f4e3c674bdbefde3fbb41"
+                "reference": "99cf7544c3960837e0299fe211b9f3ad3fddec4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/factorio-item-browser/export-queue-client/zipball/a64bc8cca19bb35df30f4e3c674bdbefde3fbb41",
-                "reference": "a64bc8cca19bb35df30f4e3c674bdbefde3fbb41",
+                "url": "https://api.github.com/repos/factorio-item-browser/export-queue-client/zipball/99cf7544c3960837e0299fe211b9f3ad3fddec4f",
+                "reference": "99cf7544c3960837e0299fe211b9f3ad3fddec4f",
                 "shasum": ""
             },
             "require": {
@@ -1274,7 +1274,7 @@
                 "export",
                 "queue"
             ],
-            "time": "2020-03-26T08:32:24+00:00"
+            "time": "2020-03-26T09:26:10+00:00"
         },
         {
             "name": "fig/http-message-util",
@@ -6278,9 +6278,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "factorio-item-browser/export-queue-client": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
