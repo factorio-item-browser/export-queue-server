@@ -15,7 +15,6 @@
   "require": {
     "php": "^7.3",
     "ext-PDO": "*",
-    "bluepsyduck/container-interop-doctrine-migrations": "^1.0",
     "bluepsyduck/mapper-manager": "^1.1",
     "bluepsyduck/laminas-autowire-factory": "^1.0",
     "doctrine/cache": "^1.8",
@@ -30,7 +29,8 @@
     "mezzio/mezzio-fastroute": "^3.0",
     "mezzio/mezzio-helpers": "^5.0",
     "ramsey/uuid": "^3.8",
-    "ramsey/uuid-doctrine": "^1.5"
+    "ramsey/uuid-doctrine": "^1.5",
+    "roave/psr-container-doctrine": "^2.2"
   },
   "require-dev": {
     "bluepsyduck/test-helper": "^1.0",

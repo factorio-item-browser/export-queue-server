@@ -33,7 +33,7 @@ return [
                 ],
             ],
         ],
-        'migrations_configuration' => [
+        'migrations' => [
             'orm_default' => [
                 'directory' => 'data/migrations',
                 'name'      => 'FactorioItemBrowser ExportQueue Database Migrations',
