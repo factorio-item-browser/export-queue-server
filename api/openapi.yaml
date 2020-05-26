@@ -9,7 +9,7 @@ info:
     email: "bluepsyduck@gmx.com"
   version: "1.0.0"
 servers:
-  - url: "https://queue.factorio-item-browser.com/"
+  - url: "https://export-queue.factorio-item-browser.com/"
     description: "Live API server"
 
 tags:
@@ -35,6 +35,8 @@ paths:
                   $ref: "#/components/schemas/combinationId"
                 modNames:
                   $ref: "#/components/schemas/modNames"
+                priority:
+                  $ref: "#/components/schemas/priority"
               required:
                 - combinationId
                 - modNames
@@ -119,6 +121,7 @@ paths:
             enum:
               - creationTime
               - latest
+              - priority
           required: false
           example: creationTime
         - name: limit
@@ -172,6 +175,8 @@ components:
           $ref: "#/components/schemas/combinationId"
         modNames:
           $ref: "#/components/schemas/modNames"
+        priority:
+          $ref: "#/components/schemas/priority"
         status:
           $ref: "#/components/schemas/status"
         errorMessage:
@@ -208,12 +213,24 @@ components:
       type: string
       description: The id of the combination to be exported.
       example: cc5b7d99-8243-417d-86f9-a3ffe49d715b
+    errorMessage:
+      type: string
+      description: The error message in case the export job failed.
+      example: "InternalException: Everything blew up."
     modNames:
       type: array
       items:
         type: string
       description: The mod names to be exported as combination.
-      example: ["base", "IndustrialRevolution"]
+      example: ["base", "Krastorio2"]
+    priority:
+      type: string
+      enum:
+        - admin
+        - user
+        - script
+      description: The priority of the export job.
+      example: user
     status:
       type: string
       enum:
@@ -226,7 +243,3 @@ components:
         - error
       description: The status of the export job.
       example: queued
-    errorMessage:
-      type: string
-      description: The error message in case the export job failed.
-      example: "InternalException: Everything blew up."

@@ -8,6 +8,7 @@ use BluePsyduck\MapperManager\Exception\MapperException;
 use BluePsyduck\MapperManager\MapperManagerInterface;
 use BluePsyduck\TestHelper\ReflectionTrait;
 use Exception;
+use FactorioItemBrowser\ExportQueue\Client\Constant\JobPriority;
 use FactorioItemBrowser\ExportQueue\Client\Constant\JobStatus;
 use FactorioItemBrowser\ExportQueue\Client\Request\Job\CreateRequest;
 use FactorioItemBrowser\ExportQueue\Client\Request\RequestInterface;
@@ -186,6 +187,7 @@ class CreateHandlerTest extends TestCase
         $combinationId = Uuid::fromString($combinationIdString);
         $modNames = ['abc', 'def'];
         $agentName = 'ghi';
+        $priority = 'jkl';
 
         /* @var CreateRequest&MockObject $request */
         $request = $this->createMock(CreateRequest::class);
@@ -202,14 +204,58 @@ class CreateHandlerTest extends TestCase
               ->method('getName')
               ->willReturn($agentName);
 
-        $handler = new CreateHandler($this->jobRepository, $this->mapperManager);
+        /* @var CreateHandler&MockObject $handler */
+        $handler = $this->getMockBuilder(CreateHandler::class)
+                        ->onlyMethods(['getPriorityFromRequest'])
+                        ->setConstructorArgs([$this->jobRepository, $this->mapperManager])
+                        ->getMock();
+        $handler->expects($this->once())
+                ->method('getPriorityFromRequest')
+                ->with($this->identicalTo($request))
+                ->willReturn($priority);
+
         $result = $this->invokeMethod($handler, 'createJobEntity', $request, $agent);
 
         /* @var Job $result */
         $this->assertEquals($combinationId, $result->getCombinationId());
         $this->assertSame($modNames, $result->getModNames());
+        $this->assertSame($priority, $result->getPriority());
         $this->assertSame(JobStatus::QUEUED, $result->getStatus());
         $this->assertSame($agentName, $result->getCreator());
         $this->assertNotNull($result->getCreationTime());
+    }
+
+    /**
+     * Provides the data for the getPriorityFromRequest test.
+     * @return array<mixed>
+     */
+    public function provideGetPriorityFromRequest(): array
+    {
+        return [
+            [JobPriority::ADMIN, JobPriority::ADMIN],
+            [JobPriority::USER, JobPriority::USER],
+            [JobPriority::SCRIPT, JobPriority::SCRIPT],
+
+            ['abc', JobPriority::USER],
+        ];
+    }
+
+    /**
+     * Tests the getPriorityFromRequest method.
+     * @param string $priority
+     * @param string $expectedResult
+     * @throws ReflectionException
+     * @covers ::getPriorityFromRequest
+     * @dataProvider provideGetPriorityFromRequest
+     */
+    public function testGetPriorityFromRequest(string $priority, string $expectedResult): void
+    {
+        $request = new CreateRequest();
+        $request->setPriority($priority);
+
+        $handler = new CreateHandler($this->jobRepository, $this->mapperManager);
+        $result = $this->invokeMethod($handler, 'getPriorityFromRequest', $request);
+
+        $this->assertSame($expectedResult, $result);
     }
 }

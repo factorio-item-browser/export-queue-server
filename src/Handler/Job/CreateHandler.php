@@ -8,6 +8,7 @@ use BluePsyduck\MapperManager\Exception\MapperException;
 use BluePsyduck\MapperManager\MapperManagerInterface;
 use DateTime;
 use Exception;
+use FactorioItemBrowser\ExportQueue\Client\Constant\JobPriority;
 use FactorioItemBrowser\ExportQueue\Client\Constant\JobStatus;
 use FactorioItemBrowser\ExportQueue\Client\Request\Job\CreateRequest;
 use FactorioItemBrowser\ExportQueue\Client\Request\RequestInterface;
@@ -30,6 +31,15 @@ use Ramsey\Uuid\Uuid;
  */
 class CreateHandler implements RequestHandlerInterface
 {
+    /**
+     * The valid job priorities.
+     */
+    protected const VALID_PRIORITIES = [
+        JobPriority::ADMIN,
+        JobPriority::USER,
+        JobPriority::SCRIPT,
+    ];
+
     /**
      * The job repository.
      * @var JobRepository
@@ -91,9 +101,24 @@ class CreateHandler implements RequestHandlerInterface
         $job = new Job();
         $job->setCombinationId(Uuid::fromString($request->getCombinationId()))
             ->setModNames($request->getModNames())
+            ->setPriority($this->getPriorityFromRequest($request))
             ->setStatus(JobStatus::QUEUED)
             ->setCreator($agent->getName())
             ->setCreationTime(new DateTime());
         return $job;
+    }
+
+    /**
+     * Returns the priority from the request.
+     * @param CreateRequest $request
+     * @return string
+     */
+    protected function getPriorityFromRequest(CreateRequest $request): string
+    {
+        $priority = $request->getPriority();
+        if (!in_array($priority, self::VALID_PRIORITIES, true)) {
+            $priority = JobPriority::USER;
+        }
+        return $priority;
     }
 }

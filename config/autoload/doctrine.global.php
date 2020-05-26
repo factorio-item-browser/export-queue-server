@@ -20,6 +20,7 @@ return [
             'orm_default' => [
                 'doctrine_mapping_types' => [
                     UuidBinaryType::NAME => UuidBinaryType::BINARY,
+                    'enum' => 'string',
                 ],
             ],
         ],
@@ -41,6 +42,7 @@ return [
             ],
         ],
         'types' => [
+            Doctrine\Type\JobPriorityType::NAME => Doctrine\Type\JobPriorityType::class,
             Doctrine\Type\JobStatusType::NAME => Doctrine\Type\JobStatusType::class,
             UuidBinaryType::NAME => UuidBinaryType::class,
         ],

@@ -34,6 +34,12 @@
             </options>
         </field>
 
+        <field name="priority" type="job_priority">
+            <options>
+                <option name="comment">The priority of the export job.</option>
+            </options>
+        </field>
+
         <field name="status" type="job_status">
             <options>
                 <option name="comment">The status of the export job.</option>
