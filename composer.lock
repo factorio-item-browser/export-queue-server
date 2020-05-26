@@ -1146,12 +1146,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/factorio-item-browser/export-queue-client.git",
-                "reference": "bb2deccb8a67675d80c111b1cd354b11279735ed"
+                "reference": "9d04aada7f3ef56e2080c516a9a4336324967f15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/factorio-item-browser/export-queue-client/zipball/bb2deccb8a67675d80c111b1cd354b11279735ed",
-                "reference": "bb2deccb8a67675d80c111b1cd354b11279735ed",
+                "url": "https://api.github.com/repos/factorio-item-browser/export-queue-client/zipball/9d04aada7f3ef56e2080c516a9a4336324967f15",
+                "reference": "9d04aada7f3ef56e2080c516a9a4336324967f15",
                 "shasum": ""
             },
             "require": {
@@ -1197,7 +1197,7 @@
                 "export",
                 "queue"
             ],
-            "time": "2020-05-26T09:42:20+00:00"
+            "time": "2020-05-26T12:13:18+00:00"
         },
         {
             "name": "fig/http-message-util",

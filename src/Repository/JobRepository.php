@@ -6,6 +6,8 @@ namespace FactorioItemBrowser\ExportQueue\Server\Repository;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\QueryBuilder;
+use FactorioItemBrowser\ExportQueue\Client\Constant\JobPriority;
 use FactorioItemBrowser\ExportQueue\Client\Constant\ListOrder;
 use FactorioItemBrowser\ExportQueue\Server\Doctrine\Type\JobStatusType;
 use FactorioItemBrowser\ExportQueue\Server\Entity\Job;
@@ -20,6 +22,15 @@ use Ramsey\Uuid\UuidInterface;
  */
 class JobRepository
 {
+    /**
+     * The values of the priorities for sorting.
+     */
+    protected const PRIORITIES = [
+        JobPriority::ADMIN => 1,
+        JobPriority::USER => 2,
+        JobPriority::SCRIPT => 3,
+    ];
+
     /**
      * The entity manager.
      * @var EntityManagerInterface
@@ -69,8 +80,9 @@ class JobRepository
         $queryBuilder = $this->entityManager->createQueryBuilder();
         $queryBuilder->select('j')
                      ->from(Job::class, 'j')
-                     ->addOrderBy('j.creationTime', $order === ListOrder::LATEST ? 'DESC' : 'ASC')
                      ->setMaxResults($limit);
+
+        $this->addOrder($queryBuilder, $order);
 
         if ($combinationId !== null) {
             $queryBuilder->andWhere('j.combinationId = :combinationId')
@@ -82,6 +94,35 @@ class JobRepository
         }
 
         return $queryBuilder->getQuery()->getResult();
+    }
+
+    /**
+     * Adds the order clauses to the query builder.
+     * @param QueryBuilder $queryBuilder
+     * @param string $order
+     */
+    protected function addOrder(QueryBuilder $queryBuilder, string $order): void
+    {
+        switch ($order) {
+            case ListOrder::PRIORITY:
+                $conditions = [];
+                foreach (self::PRIORITIES as $priority => $value) {
+                    $conditions[] = "WHEN '{$priority}' THEN {$value}";
+                }
+                $queryBuilder->addSelect('CASE j.priority ' . implode(' ', $conditions) . ' ELSE 100 END AS HIDDEN p')
+                             ->addOrderBy('p', 'ASC')
+                             ->addOrderBy('j.creationTime', 'ASC');
+                break;
+
+            case ListOrder::LATEST:
+                $queryBuilder->addOrderBy('j.creationTime', 'DESC');
+                break;
+
+            case ListOrder::CREATION_TIME:
+            default:
+                $queryBuilder->addOrderBy('j.creationTime', 'ASC');
+                break;
+        }
     }
 
     /**
