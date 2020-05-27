@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2a64eaaef02c70c8d17abe9d2dce11ee",
+    "content-hash": "9e8293d1caabd34037e8c05faf55ed11",
     "packages": [
         {
             "name": "bluepsyduck/laminas-autowire-factory",
@@ -1142,16 +1142,16 @@
         },
         {
             "name": "factorio-item-browser/export-queue-client",
-            "version": "dev-feature/priority",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/factorio-item-browser/export-queue-client.git",
-                "reference": "9d04aada7f3ef56e2080c516a9a4336324967f15"
+                "reference": "6c16ccd9e47851c796f432138aa60f6ff5845701"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/factorio-item-browser/export-queue-client/zipball/9d04aada7f3ef56e2080c516a9a4336324967f15",
-                "reference": "9d04aada7f3ef56e2080c516a9a4336324967f15",
+                "url": "https://api.github.com/repos/factorio-item-browser/export-queue-client/zipball/6c16ccd9e47851c796f432138aa60f6ff5845701",
+                "reference": "6c16ccd9e47851c796f432138aa60f6ff5845701",
                 "shasum": ""
             },
             "require": {
@@ -1197,7 +1197,7 @@
                 "export",
                 "queue"
             ],
-            "time": "2020-05-26T12:13:18+00:00"
+            "time": "2020-05-27T08:14:54+00:00"
         },
         {
             "name": "fig/http-message-util",
@@ -6425,18 +6425,9 @@
             "time": "2020-04-18T12:12:48+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.2.0",
-            "alias_normalized": "1.2.0.0",
-            "version": "dev-feature/priority",
-            "package": "factorio-item-browser/export-queue-client"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "factorio-item-browser/export-queue-client": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
