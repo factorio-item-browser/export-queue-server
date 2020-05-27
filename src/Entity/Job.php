@@ -34,6 +34,12 @@ class Job
     protected $modNames = [];
 
     /**
+     * The priority of the export job.
+     * @var string
+     */
+    protected $priority = '';
+
+    /**
      * The status of the export job.
      * @var string
      */
@@ -139,6 +145,26 @@ class Job
     public function getModNames(): array
     {
         return $this->modNames;
+    }
+
+    /**
+     * Sets the priority of the export job.
+     * @param string $priority
+     * @return $this
+     */
+    public function setPriority(string $priority): self
+    {
+        $this->priority = $priority;
+        return $this;
+    }
+
+    /**
+     * Returns the priority of the export job.
+     * @return string
+     */
+    public function getPriority(): string
+    {
+        return $this->priority;
     }
 
     /**

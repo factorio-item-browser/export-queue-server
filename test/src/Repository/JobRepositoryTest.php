@@ -171,7 +171,7 @@ class JobRepositoryTest extends TestCase
         /* @var UuidInterface&MockObject $combinationId */
         $combinationId = $this->createMock(UuidInterface::class);
         $status = 'abc';
-        $order = ListOrder::LATEST;
+        $order = 'def';
         $limit = 42;
 
         $jobs = [
@@ -194,10 +194,6 @@ class JobRepositoryTest extends TestCase
         $queryBuilder->expects($this->once())
                      ->method('from')
                      ->with($this->identicalTo(Job::class), $this->identicalTo('j'))
-                     ->willReturnSelf();
-        $queryBuilder->expects($this->once())
-                     ->method('addOrderBy')
-                     ->with($this->identicalTo('j.creationTime'), $this->identicalTo('DESC'))
                      ->willReturnSelf();
         $queryBuilder->expects($this->once())
                      ->method('setMaxResults')
@@ -233,7 +229,15 @@ class JobRepositoryTest extends TestCase
                             ->method('createQueryBuilder')
                             ->willReturn($queryBuilder);
 
-        $repository = new JobRepository($this->entityManager);
+        /* @var JobRepository&MockObject $repository */
+        $repository = $this->getMockBuilder(JobRepository::class)
+                           ->onlyMethods(['addOrder'])
+                           ->setConstructorArgs([$this->entityManager])
+                           ->getMock();
+        $repository->expects($this->once())
+                   ->method('addOrder')
+                   ->with($this->identicalTo($queryBuilder), $this->identicalTo($order));
+
         $result = $repository->findAll($combinationId, $status, $order, $limit);
 
         $this->assertSame($jobs, $result);
@@ -270,10 +274,6 @@ class JobRepositoryTest extends TestCase
                      ->with($this->identicalTo(Job::class), $this->identicalTo('j'))
                      ->willReturnSelf();
         $queryBuilder->expects($this->once())
-                     ->method('addOrderBy')
-                     ->with($this->identicalTo('j.creationTime'), $this->identicalTo('ASC'))
-                     ->willReturnSelf();
-        $queryBuilder->expects($this->once())
                      ->method('setMaxResults')
                      ->with($this->identicalTo($limit))
                      ->willReturnSelf();
@@ -289,10 +289,88 @@ class JobRepositoryTest extends TestCase
                             ->method('createQueryBuilder')
                             ->willReturn($queryBuilder);
 
-        $repository = new JobRepository($this->entityManager);
+        /* @var JobRepository&MockObject $repository */
+        $repository = $this->getMockBuilder(JobRepository::class)
+                           ->onlyMethods(['addOrder'])
+                           ->setConstructorArgs([$this->entityManager])
+                           ->getMock();
+        $repository->expects($this->once())
+                   ->method('addOrder')
+                   ->with($this->identicalTo($queryBuilder), $this->identicalTo($order));
+
         $result = $repository->findAll(null, '', $order, $limit);
 
         $this->assertSame($jobs, $result);
+    }
+
+    /**
+     * Tests the addOrder method.
+     * @throws ReflectionException
+     * @covers ::addOrder
+     */
+    public function testAddOrderWithPriority(): void
+    {
+        $order = ListOrder::PRIORITY;
+
+        $expectedSelect
+            = "CASE j.priority WHEN 'admin' THEN 1 WHEN 'user' THEN 2 WHEN 'script' THEN 3 ELSE 100 END AS HIDDEN p";
+
+        /* @var QueryBuilder&MockObject $queryBuilder */
+        $queryBuilder = $this->createMock(QueryBuilder::class);
+        $queryBuilder->expects($this->once())
+                     ->method('addSelect')
+                     ->with($this->identicalTo($expectedSelect))
+                     ->willReturnSelf();
+        $queryBuilder->expects($this->exactly(2))
+                     ->method('addOrderBy')
+                     ->withConsecutive(
+                         [$this->identicalTo('p'), $this->identicalTo('ASC')],
+                         [$this->identicalTo('j.creationTime'), $this->identicalTo('ASC')]
+                     )
+                     ->willReturnSelf();
+
+        $repository = new JobRepository($this->entityManager);
+        $this->invokeMethod($repository, 'addOrder', $queryBuilder, $order);
+    }
+
+    /**
+     * Tests the addOrder method.
+     * @throws ReflectionException
+     * @covers ::addOrder
+     */
+    public function testAddOrderWithLatest(): void
+    {
+        $order = ListOrder::LATEST;
+
+        /* @var QueryBuilder&MockObject $queryBuilder */
+        $queryBuilder = $this->createMock(QueryBuilder::class);
+        $queryBuilder->expects($this->once())
+                     ->method('addOrderBy')
+                     ->with($this->identicalTo('j.creationTime'), $this->identicalTo('DESC'))
+                     ->willReturnSelf();
+
+        $repository = new JobRepository($this->entityManager);
+        $this->invokeMethod($repository, 'addOrder', $queryBuilder, $order);
+    }
+
+    /**
+     * Tests the addOrder method.
+     * @throws ReflectionException
+     * @covers ::addOrder
+     */
+    public function testAddOrderWithCreationTime(): void
+    {
+        $order = ListOrder::CREATION_TIME;
+
+        /* @var QueryBuilder&MockObject $queryBuilder */
+        $queryBuilder = $this->createMock(QueryBuilder::class);
+        $queryBuilder->expects($this->once())
+                     ->method('addOrderBy')
+                     ->with($this->identicalTo('j.creationTime'), $this->identicalTo('ASC'))
+                     ->willReturnSelf();
+
+        $repository = new JobRepository($this->entityManager);
+        $this->invokeMethod($repository, 'addOrder', $queryBuilder, $order);
     }
 
     /**

@@ -11,12 +11,12 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\ExportQueue\Server;
 
-use BluePsyduck\ContainerInteropDoctrineMigrations\MigrationsConfigurationFactory;
 use BluePsyduck\LaminasAutoWireFactory\AutoWireFactory;
 use ContainerInteropDoctrine\EntityManagerFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use FactorioItemBrowser\ExportQueue\Server\Constant\ConfigKey;
 use Mezzio\Middleware\ErrorResponseGenerator;
+use Roave\PsrContainerDoctrine\MigrationsConfigurationFactory;
 
 use function BluePsyduck\LaminasAutoWireFactory\readConfig;
 

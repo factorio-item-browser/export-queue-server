@@ -42,6 +42,7 @@ class JobMapper implements DynamicMapperInterface
         }
 
         $destination->setModNames($source->getModNames())
+                    ->setPriority($source->getPriority())
                     ->setStatus($source->getStatus())
                     ->setErrorMessage($source->getErrorMessage())
                     ->setCreator($source->getCreator())
