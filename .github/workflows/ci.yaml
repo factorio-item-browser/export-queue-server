@@ -56,7 +56,7 @@ jobs:
       - name: Setup problem matchers
         run: |
           echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
-          echo "::add-matcher::.github/problem-matcher/coverage-check.json"
+          echo "::add-matcher::.github/problem-matchers/coverage-check.json"
 
       - name: Install dependencies
         run: composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
