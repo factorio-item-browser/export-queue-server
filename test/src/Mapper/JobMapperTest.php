@@ -84,12 +84,12 @@ class JobMapperTest extends TestCase
                        ->setExportTime(new DateTime('2038-01-18 03:14:07'))
                        ->setImporter('stu')
                        ->setImportTime(new DateTime('2038-01-19 03:14:07'));
-        
+
         $destination = new ClientJob();
-        
+
         $mapper = new JobMapper();
         $mapper->map($entity, $destination);
-        
+
         $this->assertEquals($expectedResult, $destination);
     }
 }
