@@ -6,6 +6,9 @@
 [![build](https://img.shields.io/github/workflow/status/factorio-item-browser/export-queue-server/CI?logo=github)](https://github.com/factorio-item-browser/export-queue-server/actions)
 [![Codecov](https://img.shields.io/codecov/c/gh/factorio-item-browser/export-queue-server?logo=codecov)](https://codecov.io/gh/factorio-item-browser/export-queue-server)
 
+### DEPRECATED: The Export Queue has been replaced with the [Combination API](https://github.com/factorio-item-browser/combination-api-server), which now contains the queue of export jobs as well as some more features.
+
+
 This project manages the export queue, a small database holding combinations of mods which need to be exported from
 Factorio and imported to the API database. These export jobs are organized as a queue and waiting for export nodes to
 process them.
